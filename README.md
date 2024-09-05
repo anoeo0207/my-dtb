@@ -1,2 +1,1 @@
-# my-dtb
-next's dashboard project
+nextjs dashboard
