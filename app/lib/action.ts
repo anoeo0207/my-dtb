@@ -25,6 +25,7 @@ const CreateInvoice = FormSchema.omit({ id: true, date: true });
 
 export async function createInvoice(prevState: State, formData: FormData) {
   // Validate form using Zod
+  console.log("Run 1234238951290512905129834591239058902");
   const validatedFields = CreateInvoice.safeParse({
     customerId: formData.get('customerId'),
     amount: formData.get('amount'),

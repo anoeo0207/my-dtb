@@ -12,6 +12,12 @@ import {
 } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { Button } from '@/app/ui/button';
+import App from '@/components/ui/radioAntd';
+
+const handleStatusChange = (value: string) => {
+  console.log('Status changed to:', value);
+};
+
 
 export default function EditInvoiceForm ({
   invoice,
@@ -80,7 +86,8 @@ export default function EditInvoiceForm ({
           <div className="rounded-md border border-gray-200 bg-white px-[14px] py-3">
             <div className="flex gap-4">
               <div className="flex items-center">
-                <input
+              <App content2="Paid" id2="paid" content1="Pending" id1="pending"  onChange={handleStatusChange}  />
+                {/* <input
                   id="pending"
                   name="status"
                   type="radio"
@@ -93,10 +100,10 @@ export default function EditInvoiceForm ({
                   className="ml-2 flex cursor-pointer items-center gap-1.5 rounded-full bg-gray-100 px-3 py-1.5 text-xs font-medium text-gray-600"
                 >
                   Pending <ClockIcon className="h-4 w-4" />
-                </label>
+                </label> */}
               </div>
               <div className="flex items-center">
-                <input
+                {/* <input
                   id="paid"
                   name="status"
                   type="radio"
@@ -109,7 +116,7 @@ export default function EditInvoiceForm ({
                   className="ml-2 flex cursor-pointer items-center gap-1.5 rounded-full bg-green-500 px-3 py-1.5 text-xs font-medium text-white"
                 >
                   Paid <CheckIcon className="h-4 w-4" />
-                </label>
+                </label> */}
               </div>
             </div>
           </div>
