@@ -9,8 +9,19 @@ import {
   CurrencyDollarIcon,
   UserCircleIcon,
 } from '@heroicons/react/24/outline';
-import { Button } from '@/app/ui/button';
+//import { Button } from '@/app/ui/button';
 import { createInvoice, State } from '@/app/lib/action';
+import { Button, buttonVariants } from '@/components/ui/button';
+import Input from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 export default function Form({ customers }: { customers: CustomerField[] }) {
   const initialState: State = {message: null, errors: {}};
@@ -22,7 +33,20 @@ export default function Form({ customers }: { customers: CustomerField[] }) {
       <label htmlFor="customer" className="mb-2 block text-sm font-medium">
         Choose customer
       </label>
+      
+      
       <div className="relative">
+          <Select>
+      <SelectTrigger className="w-[180px]">
+        <SelectValue placeholder="Theme" />
+      </SelectTrigger>
+      <SelectContent>
+        <SelectItem value="light">Light</SelectItem>
+        <SelectItem value="dark">Dark</SelectItem>
+        <SelectItem value="system">System</SelectItem>
+      </SelectContent>
+    </Select>
+
         <select
           id="customer"
           name="customerId"
@@ -56,9 +80,10 @@ export default function Form({ customers }: { customers: CustomerField[] }) {
           <label htmlFor="amount" className="mb-2 block text-sm font-medium">
             Choose an amount
           </label>
+
           <div className="relative mt-2 rounded-md">
             <div className="relative">
-              <input
+              <Input
                 id="amount"
                 name="amount"
                 type="number"
@@ -72,6 +97,8 @@ export default function Form({ customers }: { customers: CustomerField[] }) {
           </div>
         </div>
 
+        
+
         {/* Invoice Status */}
         <fieldset>
           <legend className="mb-2 block text-sm font-medium">
@@ -79,7 +106,18 @@ export default function Form({ customers }: { customers: CustomerField[] }) {
           </legend>
           <div className="rounded-md border border-gray-200 bg-white px-[14px] py-3">
             <div className="flex gap-4">
-              <div className="flex items-center">
+
+              <RadioGroup defaultValue="paid" name="status">
+          <div className="flex items-center space-x-2">
+            <RadioGroupItem value="paid" id="paid" /> <CheckIcon className="h-4 w-4" />
+            <Label htmlFor="paid">Paid</Label>
+          </div>
+          <div className="flex items-center space-x-2">
+            <RadioGroupItem value="pending" id="pending" /> <ClockIcon className="h-4 w-4" />
+            <Label htmlFor="pending">Pending</Label>
+          </div>
+        </RadioGroup>
+              {/* <div className="flex items-center">
                 <input
                   id="pending"
                   name="status"
@@ -108,7 +146,7 @@ export default function Form({ customers }: { customers: CustomerField[] }) {
                 >
                   Paid <CheckIcon className="h-4 w-4" />
                 </label>
-              </div>
+              </div> */}
             </div>
           </div>
         </fieldset>
@@ -120,7 +158,8 @@ export default function Form({ customers }: { customers: CustomerField[] }) {
         >
           Cancel
         </Link>
-        <Button type="submit">Create Invoice</Button>
+        {/* <Button type="submit">Create Invoice</Button> */}
+        <Button variant="default">Create Invoice</Button>
       </div>
     </form>
   );

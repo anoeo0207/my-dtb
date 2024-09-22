@@ -11,7 +11,12 @@ import {
   UserCircleIcon,
 } from '@heroicons/react/24/outline';
 import Link from 'next/link';
-import { Button } from '@/app/ui/button';
+//import { Button } from '@/app/ui/button';
+import { Button, buttonVariants } from '@/components/ui/button';
+import Input from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio";
+
 
 export default function EditInvoiceForm ({
   invoice,
@@ -58,7 +63,7 @@ export default function EditInvoiceForm ({
           </label>
           <div className="relative mt-2 rounded-md">
             <div className="relative">
-              <input
+              <Input
                 id="amount"
                 name="amount"
                 type="number"
@@ -79,7 +84,17 @@ export default function EditInvoiceForm ({
           </legend>
           <div className="rounded-md border border-gray-200 bg-white px-[14px] py-3">
             <div className="flex gap-4">
-              <div className="flex items-center">
+            <RadioGroup defaultValue="paid" name="status">
+          <div className="flex items-center space-x-2">
+            <RadioGroupItem value="paid" id="paid" /> <CheckIcon className="h-4 w-4" />
+            <Label htmlFor="paid">Paid</Label>
+          </div>
+          <div className="flex items-center space-x-2">
+            <RadioGroupItem value="pending" id="pending" /> <ClockIcon className="h-4 w-4" />
+            <Label htmlFor="pending">Pending</Label>
+          </div>
+        </RadioGroup>
+              {/* <div className="flex items-center">
                 <input
                   id="pending"
                   name="status"
@@ -110,7 +125,7 @@ export default function EditInvoiceForm ({
                 >
                   Paid <CheckIcon className="h-4 w-4" />
                 </label>
-              </div>
+              </div> */}
             </div>
           </div>
         </fieldset>
@@ -122,7 +137,7 @@ export default function EditInvoiceForm ({
         >
           Cancel
         </Link>
-        <Button type="submit">Edit Invoice</Button>
+        <Button variant="default">Apply changes</Button>
       </div>
     </form>
   );
