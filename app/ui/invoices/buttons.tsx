@@ -1,3 +1,4 @@
+'use client'
 import { PencilIcon, PlusIcon, TrashIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { deleteInvoice } from '@/app/lib/action';
@@ -13,65 +14,6 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
-
-import { z } from "zod"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form"
-import Input from "@/components/ui/input"
- 
-const formSchema = z.object({
-  username: z.string().min(2).max(50),
-})
-
-export function ProfileForm() {
-  // 1. Define your form.
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      username: "",
-    },
-  })
- 
-  // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values)
-
-    return (
-      <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-        <FormField
-          control={form.control}
-          name="username"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Username</FormLabel>
-              <FormControl>
-                <Input placeholder="shadcn" {...field} />
-              </FormControl>
-              <FormDescription>
-                This is your public display name.
-              </FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <Button type="submit">Submit</Button>
-      </form>
-    </Form>
-    )
-  }
-}
 
 
 export function CreateInvoice() {
@@ -113,7 +55,7 @@ export function DeleteInvoice({ id }: { id: string }) {
       <TrashIcon className="w-5" />
     </div>
   </AlertDialogTrigger>
-  <AlertDialogContent>
+  <AlertDialogContent className="bg-white">
     <AlertDialogHeader>
       <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
       <AlertDialogDescription>
@@ -122,12 +64,10 @@ export function DeleteInvoice({ id }: { id: string }) {
       </AlertDialogDescription>
     </AlertDialogHeader>
     <AlertDialogFooter>
-      <AlertDialogCancel>Cancel</AlertDialogCancel>
-      <AlertDialogAction>
-      <Button type="submit" >
+      <AlertDialogCancel className="hover:bg-gray-300">Cancel</AlertDialogCancel>
+          <AlertDialogAction className="hover:bg-red-500" onClick={() => deleteInvoiceWithId()}>
         Continue
-      </Button>
-      </AlertDialogAction>
+    </AlertDialogAction>
     </AlertDialogFooter>
   </AlertDialogContent>
 </AlertDialog>
@@ -136,6 +76,5 @@ export function DeleteInvoice({ id }: { id: string }) {
         <TrashIcon className="w-5" />
       </button> */}
     </form>
-    
   );
 }

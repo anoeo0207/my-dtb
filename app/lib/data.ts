@@ -15,7 +15,7 @@ export async function fetchRevenue() {
     // Don't do this in production :)
 
     console.log('Fetching revenue data...');
-    await new Promise((resolve) => setTimeout(resolve, 3000)); //Set loading time for web
+    await new Promise((resolve) => setTimeout(resolve, 1000)); //Set loading time for web
 
     const data = await sql<Revenue>`SELECT * FROM revenue`;
 
@@ -170,7 +170,9 @@ export async function fetchCustomers() {
     const data = await sql<CustomerField>`
       SELECT
         id,
-        name
+        name,
+        email,
+        image_url
       FROM customers
       ORDER BY name ASC
     `;

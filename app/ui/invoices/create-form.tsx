@@ -7,7 +7,8 @@ import {
   CheckIcon,
   ClockIcon,
   CurrencyDollarIcon,
-  UserCircleIcon,
+  UserIcon,
+  AdjustmentsHorizontalIcon,
 } from '@heroicons/react/24/outline';
 //import { Button } from '@/app/ui/button';
 import { createInvoice, State } from '@/app/lib/action';
@@ -15,6 +16,8 @@ import { Button, buttonVariants } from '@/components/ui/button';
 import Input from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+
 import {
   Select,
   SelectContent,
@@ -22,32 +25,57 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { toast } from "sonner"
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card"
+
+function Toast() {
+  return toast("Invoice created successfully");
+}
 
 export default function Form({ customers }: { customers: CustomerField[] }) {
   const initialState: State = {message: null, errors: {}};
   const [state, formAction] = useActionState(createInvoice, initialState);
   return (<form action={formAction}> 
-  <div className="rounded-md bg-gray-50 p-4 md:p-6">
+  <div className="rounded-md bg-gray-50 p-4 md:p-6 bg-gray-300">
     {/* Customer Name */}
     <div className="mb-4">
-      <label htmlFor="customer" className="mb-2 block text-sm font-medium">
-        Choose customer
-      </label>
-      
+          <label htmlFor="customer" className="mb-2 block text-l font-medium flex">
+              <UserIcon className="h-5 w-5 mr-2 text-gray-600" />
+              <b>Choose a customer</b>
+          </label>    
       
       <div className="relative">
-          <Select>
-      <SelectTrigger className="w-[180px]">
-        <SelectValue placeholder="Theme" />
-      </SelectTrigger>
-      <SelectContent>
-        <SelectItem value="light">Light</SelectItem>
-        <SelectItem value="dark">Dark</SelectItem>
-        <SelectItem value="system">System</SelectItem>
-      </SelectContent>
-    </Select>
+      {/* <UserCircleIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500" /> */}
+      <Select id="customer" name="customerId" defaultValue="" aria-describedby="customer-error">
 
-        <select
+  <SelectTrigger className="w-[180px] bg-white-200 w-full h-[60px]">
+    <SelectValue placeholder="Select a customer" />
+  </SelectTrigger>
+  <SelectContent className="bg-white">
+  <SelectContent className="bg-white">
+        {customers.map((customer) => (
+          <SelectItem key={customer.id} value={customer.id} className="hover:bg-gray-300">
+            <div className="flex items-center justify-center">
+            <Avatar>
+              <AvatarImage src={customer.image_url} />
+              <AvatarFallback>CN</AvatarFallback>
+            </Avatar> 
+            <div className="pl-2 text-sm">
+            {customer.name}
+            </div>
+            </div>
+            
+          </SelectItem>
+        ))}
+      </SelectContent>
+  </SelectContent>
+</Select>
+
+        {/* <select
           id="customer"
           name="customerId"
           className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
@@ -62,8 +90,7 @@ export default function Form({ customers }: { customers: CustomerField[] }) {
               {name.name}
             </option>
           ))}
-        </select>
-        <UserCircleIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500" />
+        </select> */}
       </div>
       <div id="customer-error" aria-live="polite" aria-atomic="true">
         {state.errors?.customerId &&
@@ -77,8 +104,9 @@ export default function Form({ customers }: { customers: CustomerField[] }) {
 
         {/* Invoice Amount */}
         <div className="mb-4">
-          <label htmlFor="amount" className="mb-2 block text-sm font-medium">
-            Choose an amount
+          <label htmlFor="amount" className="mb-2 block text-l font-medium flex">
+          <CurrencyDollarIcon className="h-5 w-5 mr-2 text-gray-600" />
+            <b>Choose an amount</b>
           </label>
 
           <div className="relative mt-2 rounded-md">
@@ -89,10 +117,9 @@ export default function Form({ customers }: { customers: CustomerField[] }) {
                 type="number"
                 step="0.01"
                 placeholder="Enter USD amount"
-                className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
+                className="peer block w-full rounded-md border border-gray-200 focus:bg-gray-200 hover:bg-gray-200 py-2 text-sm outline-2 placeholder:text-gray-500"
                 required
               />
-              <CurrencyDollarIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
             </div>
           </div>
         </div>
@@ -101,20 +128,27 @@ export default function Form({ customers }: { customers: CustomerField[] }) {
 
         {/* Invoice Status */}
         <fieldset>
-          <legend className="mb-2 block text-sm font-medium">
-            Set the invoice status
+          <legend className="mb-2 block text-l font-medium flex">
+            <AdjustmentsHorizontalIcon className="h-5 w-5 mr-2 text-gray-600" />
+            <b>Set the invoice status</b>
           </legend>
           <div className="rounded-md border border-gray-200 bg-white px-[14px] py-3">
             <div className="flex gap-4">
 
               <RadioGroup defaultValue="paid" name="status">
           <div className="flex items-center space-x-2">
-            <RadioGroupItem value="paid" id="paid" /> <CheckIcon className="h-4 w-4" />
-            <Label htmlFor="paid">Paid</Label>
+            <RadioGroupItem value="paid" id="paid" />
+            <div className="flex w-[120%] items-center bg-green-300 rounded-lg">
+              <CheckIcon className="h-4 w-4 mr-2" />
+              <Label htmlFor="paid">Paid</Label>
+            </div>
           </div>
           <div className="flex items-center space-x-2">
-            <RadioGroupItem value="pending" id="pending" /> <ClockIcon className="h-4 w-4" />
+            <RadioGroupItem value="pending" id="pending" />
+            <div className="flex w-[120%] items-center bg-gray-200 rounded-lg">
+            <ClockIcon className="h-4 w-4 mr-2" />
             <Label htmlFor="pending">Pending</Label>
+            </div>
           </div>
         </RadioGroup>
               {/* <div className="flex items-center">
@@ -159,7 +193,20 @@ export default function Form({ customers }: { customers: CustomerField[] }) {
           Cancel
         </Link>
         {/* <Button type="submit">Create Invoice</Button> */}
-        <Button variant="default">Create Invoice</Button>
+        <Button className="bg-purple-500 hover:bg-purple-300" variant="default" onClick={() =>
+        Toast()
+      }
+    >Create Invoice</Button>
+      </div>
+
+      <div className="pt-12 text-center">
+            <HoverCard>
+        <HoverCardTrigger><b>@Acme_2024</b></HoverCardTrigger>
+        <HoverCardContent className="bg-white">
+          <b>@acme_2024 </b>
+        Lorem ipsum dolor sit amet consectetur adipiscing elit.
+        </HoverCardContent>
+      </HoverCard>
       </div>
     </form>
   );

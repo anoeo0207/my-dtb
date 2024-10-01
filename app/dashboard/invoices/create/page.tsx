@@ -25,13 +25,13 @@ export default async function Page() {
       <BreadcrumbList>
 
         <BreadcrumbItem>
-          <BreadcrumbLink href="/dashboard/invoices" className="font-bold">Invoices</BreadcrumbLink>
+          <BreadcrumbLink href="/dashboard/invoices" className="font-bold text-base hover:text-gray-600">Invoices</BreadcrumbLink>
         </BreadcrumbItem>
-        <BreadcrumbSeparator>
+        <BreadcrumbSeparator className="text-2xl">
           <Slash />
         </BreadcrumbSeparator>
         <BreadcrumbItem>
-          <BreadcrumbPage>Create Invoice</BreadcrumbPage>
+          <BreadcrumbPage className="text-xl">Create Invoice</BreadcrumbPage>
         </BreadcrumbItem>
       </BreadcrumbList>
     </Breadcrumb>
