@@ -52,9 +52,6 @@ export default function LoginForm() {
                     <LockIcon className="h-6 w-6" />
                     <Label htmlFor="password" className="pl-2">Password</Label>
                 </div>
-              <Link href="#" className="ml-auto inline-block text-sm underline">
-                Forgot your password?
-              </Link>
             </div>
             <Input id="password" type="password" name="password" minLength={6} placeholder="Enter your password" required />
           </div>
@@ -67,9 +64,6 @@ export default function LoginForm() {
         </div>
         <div className="mt-4 text-center text-sm">
           Don&apos;t have an account?{" "}
-          <Link href="#" className="underline">
-            Sign up
-          </Link>
         </div>
       </CardContent>
     </Card>

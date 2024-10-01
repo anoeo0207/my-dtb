@@ -145,6 +145,15 @@ import {
   TableRow,
 } from "@/components/ui/table"
 import { fetchCardData } from '@/app/lib/data';
+import DashboardLI from "@/app/ui/dashboard/lastest-invoices-shadcn";
+import {
+    RevenueChartSkeleton,
+    LatestInvoicesSkeleton,
+    CardsSkeleton
+  } from '@/app/ui/skeletons';
+import RevenueChart from '@/app/ui/dashboard/revenue-chart';
+import { Suspense } from 'react';
+import { Component } from "@/app/ui/dashboard/chart";
 
 export const description =
   "An application shell with a header and main content area. The header has a navbar, a search input and and a user nav dropdown. The user nav is toggled by a button with an avatar image."
@@ -156,38 +165,9 @@ export default async function Page() {
             totalPaidInvoices,
             totalPendingInvoices,
         } = await fetchCardData();
+        
   return (
     <div className="flex min-h-screen w-full flex-col">
-      <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-gray-50 px-4 md:px-6">
-        <div className="flex w-full items-center gap-4 md:ml-auto md:gap-2 lg:gap-4">
-          <form className="ml-auto flex-1 sm:flex-initial">
-            <div className="relative">
-              <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-              <Input
-                type="search"
-                placeholder="Search products..."
-                className="pl-8 sm:w-[300px] md:w-[200px] lg:w-[300px]"
-              />
-            </div>
-          </form>
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="secondary" size="icon" className="rounded-full">
-                <CircleUser className="h-7 w-7" />
-                <span className="sr-only">Toggle user menu</span>
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent className="text-center" align="end">
-              <DropdownMenuLabel>ADMIN</DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem>Settings</DropdownMenuItem>
-              <DropdownMenuItem>Support</DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem>Logout</DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </div>
-      </header>
       <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8">
         <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4">
           <Card x-chunk="dashboard-01-chunk-0">
@@ -243,142 +223,24 @@ export default async function Page() {
             </CardContent>
           </Card>
         </div>
-        <div className="grid gap-4 md:gap-8 lg:grid-cols-2 xl:grid-cols-3">
-          <Card
-            className="xl:col-span-2" x-chunk="dashboard-01-chunk-4"
-          >
-            <CardHeader className="flex flex-row items-center">
-              <div className="grid gap-2">
-                <CardTitle>Transactions</CardTitle>
-                <CardDescription>
-                  Recent transactions from your store.
-                </CardDescription>
-              </div>
-            </CardHeader>
-            <CardContent>
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Customer</TableHead>
-                    <TableHead className="hidden xl:table-column">
-                      Type
-                    </TableHead>
-                    <TableHead className="hidden xl:table-column">
-                      Status
-                    </TableHead>
-                    <TableHead className="hidden xl:table-column">
-                      Date
-                    </TableHead>
-                    <TableHead className="text-right">Amount</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  <TableRow>
-                    <TableCell>
-                      <div className="font-medium">Liam Johnson</div>
-                      <div className="hidden text-sm text-muted-foreground md:inline">
-                        liam@example.com
-                      </div>
-                    </TableCell>
-                    <TableCell className="hidden xl:table-column">
-                      Sale
-                    </TableCell>
-                    <TableCell className="hidden xl:table-column">
-                      <Badge className="text-xs" variant="outline">
-                        Approved
-                      </Badge>
-                    </TableCell>
-                    <TableCell className="hidden md:table-cell lg:hidden xl:table-column">
-                      2023-06-23
-                    </TableCell>
-                    <TableCell className="text-right">$250.00</TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell>
-                      <div className="font-medium">Olivia Smith</div>
-                      <div className="hidden text-sm text-muted-foreground md:inline">
-                        olivia@example.com
-                      </div>
-                    </TableCell>
-                    <TableCell className="hidden xl:table-column">
-                      Refund
-                    </TableCell>
-                    <TableCell className="hidden xl:table-column">
-                      <Badge className="text-xs" variant="outline">
-                        Declined
-                      </Badge>
-                    </TableCell>
-                    <TableCell className="hidden md:table-cell lg:hidden xl:table-column">
-                      2023-06-24
-                    </TableCell>
-                    <TableCell className="text-right">$150.00</TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell>
-                      <div className="font-medium">Noah Williams</div>
-                      <div className="hidden text-sm text-muted-foreground md:inline">
-                        noah@example.com
-                      </div>
-                    </TableCell>
-                    <TableCell className="hidden xl:table-column">
-                      Subscription
-                    </TableCell>
-                    <TableCell className="hidden xl:table-column">
-                      <Badge className="text-xs" variant="outline">
-                        Approved
-                      </Badge>
-                    </TableCell>
-                    <TableCell className="hidden md:table-cell lg:hidden xl:table-column">
-                      2023-06-25
-                    </TableCell>
-                    <TableCell className="text-right">$350.00</TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell>
-                      <div className="font-medium">Emma Brown</div>
-                      <div className="hidden text-sm text-muted-foreground md:inline">
-                        emma@example.com
-                      </div>
-                    </TableCell>
-                    <TableCell className="hidden xl:table-column">
-                      Sale
-                    </TableCell>
-                    <TableCell className="hidden xl:table-column">
-                      <Badge className="text-xs" variant="outline">
-                        Approved
-                      </Badge>
-                    </TableCell>
-                    <TableCell className="hidden md:table-cell lg:hidden xl:table-column">
-                      2023-06-26
-                    </TableCell>
-                    <TableCell className="text-right">$450.00</TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell>
-                      <div className="font-medium">Liam Johnson</div>
-                      <div className="hidden text-sm text-muted-foreground md:inline">
-                        liam@example.com
-                      </div>
-                    </TableCell>
-                    <TableCell className="hidden xl:table-column">
-                      Sale
-                    </TableCell>
-                    <TableCell className="hidden xl:table-column">
-                      <Badge className="text-xs" variant="outline">
-                        Approved
-                      </Badge>
-                    </TableCell>
-                    <TableCell className="hidden md:table-cell lg:hidden xl:table-column">
-                      2023-06-27
-                    </TableCell>
-                    <TableCell className="text-right">$550.00</TableCell>
-                  </TableRow>
-                </TableBody>
-              </Table>
-            </CardContent>
-          </Card>
-        </div>
       </main>
+
+      <div className="grid grid-cols-2 md:grid-cols-1 lg:grid-cols-1">
+        <div className="w-full">
+          <Suspense fallback={<RevenueChartSkeleton />}>
+            <RevenueChart />
+          </Suspense>
+        </div>
+
+        <div className="mt-4 w-full" >
+          <Suspense fallback={<LatestInvoicesSkeleton />}>
+            <DashboardLI />
+          </Suspense>
+        </div>
+      </div>
+
+    <Component />
+
     </div>
   )
 }
