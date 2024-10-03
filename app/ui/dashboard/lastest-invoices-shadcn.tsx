@@ -53,7 +53,7 @@ export default async function DashboardLI() {
   
   return (
     <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8">
-      <div className="grid gap-6 lg:grid-cols-2 xl:grid-cols-3 flex">
+      <div className="grid gap-6 lg:grid-cols-1 xl:grid-cols-1 flex">
         <Card className="xl:col-span-2">
           <CardHeader className="flex flex-row items-center">
             <div className="grid gap-2">

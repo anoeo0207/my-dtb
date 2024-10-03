@@ -167,7 +167,7 @@ export default async function Page() {
         } = await fetchCardData();
         
   return (
-    <div className="flex min-h-screen w-full flex-col">
+    <div className="flex delay-500 duration-1000 min-h-screen w-full flex-col">
       <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8">
         <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4">
           <Card x-chunk="dashboard-01-chunk-0">
@@ -225,7 +225,7 @@ export default async function Page() {
         </div>
       </main>
 
-      <div className="grid grid-cols-2 md:grid-cols-1 lg:grid-cols-1">
+      <div className="grid mb-10 grid-cols-2 md:grid-cols-1 lg:grid-cols-2 border-2">
         <div className="w-full">
           <Suspense fallback={<RevenueChartSkeleton />}>
             <RevenueChart />
@@ -238,9 +238,6 @@ export default async function Page() {
           </Suspense>
         </div>
       </div>
-
-    <Component />
-
     </div>
   )
 }
