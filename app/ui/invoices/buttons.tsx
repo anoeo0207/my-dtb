@@ -55,7 +55,7 @@ export function DeleteInvoice({ id }: { id: string }) {
       <TrashIcon className="w-5" />
     </div>
   </AlertDialogTrigger>
-  <AlertDialogContent className="bg-white">
+  <AlertDialogContent className="bg-whitez">
     <AlertDialogHeader>
       <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
       <AlertDialogDescription>

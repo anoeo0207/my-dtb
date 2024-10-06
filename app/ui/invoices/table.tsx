@@ -224,7 +224,7 @@ export default async function Page ({
                         </TableHead>
                         <TableHead>Name</TableHead>
                         <TableHead>Status</TableHead>
-                        <TableHead>Price</TableHead>
+                        <TableHead>Amount</TableHead>
                         <TableHead className="hidden md:table-cell">
                           Email
                         </TableHead>
@@ -251,7 +251,7 @@ export default async function Page ({
                         <TableCell>
                           <InvoiceStatus status={invoice.status} />
                         </TableCell>
-                        <TableCell>{invoice.amount}$</TableCell>
+                        <TableCell>{formatCurrency(invoice.amount)}</TableCell>
                         <TableCell className="hidden md:table-cell">
                           {invoice.email}
                         </TableCell>
@@ -271,8 +271,7 @@ export default async function Page ({
                 </CardContent>
                 <CardFooter>
                   <div className="text-xs text-muted-foreground">
-                    Showing <strong>1-10</strong> of <strong>32</strong>{" "}
-                    products
+                    <strong>Recent invoices from your customer</strong>
                   </div>
                 </CardFooter>
               </Card>

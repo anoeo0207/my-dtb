@@ -65,7 +65,7 @@ export default function Form({ customers }: { customers: CustomerField[] }) {
               <AvatarFallback>CN</AvatarFallback>
             </Avatar> 
             <div className="pl-2 text-sm">
-            {customer.name}
+              {customer.name}
             </div>
             </div>
             
@@ -74,23 +74,6 @@ export default function Form({ customers }: { customers: CustomerField[] }) {
       </SelectContent>
   </SelectContent>
 </Select>
-
-        {/* <select
-          id="customer"
-          name="customerId"
-          className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
-          defaultValue=""
-          aria-describedby="customer-error"
-        >
-          <option value="" disabled>
-            Select a customer
-          </option>
-          {customers.map((name) => (
-            <option key={name.id} value={name.id}>
-              {name.name}
-            </option>
-          ))}
-        </select> */}
       </div>
       <div id="customer-error" aria-live="polite" aria-atomic="true">
         {state.errors?.customerId &&
