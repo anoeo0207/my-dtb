@@ -31,7 +31,7 @@ export default async function Page() {
           <Slash />
         </BreadcrumbSeparator>
         <BreadcrumbItem>
-          <BreadcrumbPage className="text-xl">Create Invoice</BreadcrumbPage>
+          <BreadcrumbPage className="text-base">Create Invoice</BreadcrumbPage>
         </BreadcrumbItem>
       </BreadcrumbList>
     </Breadcrumb>

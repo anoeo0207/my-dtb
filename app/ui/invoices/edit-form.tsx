@@ -63,7 +63,7 @@ export default function EditInvoiceForm({
                 Choose customer
               </label>
               <div className="relative">
-                <Select id="customer" name="customerId" defaultValue="" aria-describedby="customer-error">
+                <Select name="customerId" defaultValue="" aria-describedby="customer-error">
                   <SelectTrigger className="w-[180px] bg-white-200 w-full">
                     <SelectValue defaultValue={invoice.customer_id} />
                   </SelectTrigger>

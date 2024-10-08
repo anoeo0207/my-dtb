@@ -17,6 +17,7 @@ import Input from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import AcmeLogo from '@/app/ui/acme-logo'
 
 import {
   Select,
@@ -39,8 +40,10 @@ function Toast() {
 export default function Form({ customers }: { customers: CustomerField[] }) {
   const initialState: State = {message: null, errors: {}};
   const [state, formAction] = useActionState(createInvoice, initialState);
-  return (<form action={formAction}> 
-  <div className="rounded-md bg-gray-50 p-4 md:p-6 bg-gray-300">
+  return (<form action={formAction} className="flex justify-center"> 
+  <div className="rounded-md mt-10 w-3/4 justify-center p-4 md:p-6 bg-gray-300">
+      <AcmeLogo />
+    <div className="mb-10 text-center text-3xl font-bold">Create Invoice</div>
     {/* Customer Name */}
     <div className="mb-4">
           <label htmlFor="customer" className="mb-2 block text-l font-medium flex">
@@ -50,10 +53,10 @@ export default function Form({ customers }: { customers: CustomerField[] }) {
       
       <div className="relative">
       {/* <UserCircleIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500" /> */}
-      <Select id="customer" name="customerId" defaultValue="" aria-describedby="customer-error">
+      <Select name="customerId" defaultValue="" aria-describedby="customer-error">
 
-  <SelectTrigger className="w-[180px] bg-white-200 w-full h-[60px]">
-    <SelectValue placeholder="Select a customer" />
+  <SelectTrigger className="w-[180px] bg-white w-full h-[60px]">
+    <SelectValue placeholder="Select a customer"/>
   </SelectTrigger>
   <SelectContent className="bg-white">
   <SelectContent className="bg-white">
@@ -167,8 +170,7 @@ export default function Form({ customers }: { customers: CustomerField[] }) {
             </div>
           </div>
         </fieldset>
-      </div>
-      <div className="mt-6 flex justify-end gap-4">
+        <div className="mt-6 flex justify-end gap-4">
         <Link
           href="/dashboard/invoices"
           className="flex h-10 items-center rounded-lg bg-gray-100 px-4 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-200"
@@ -176,13 +178,14 @@ export default function Form({ customers }: { customers: CustomerField[] }) {
           Cancel
         </Link>
         {/* <Button type="submit">Create Invoice</Button> */}
-        <Button className="bg-purple-500 hover:bg-purple-300" variant="default" onClick={() =>
+        <Button className="hover:bg-blue-300" variant="default" onClick={() =>
         Toast()
       }
     >Create Invoice</Button>
       </div>
+      </div>
 
-      <div className="pt-12 text-center">
+      {/* <div className="pt-12 text-center">
             <HoverCard>
         <HoverCardTrigger><b>@Acme_2024</b></HoverCardTrigger>
         <HoverCardContent className="bg-white">
@@ -190,7 +193,7 @@ export default function Form({ customers }: { customers: CustomerField[] }) {
         Lorem ipsum dolor sit amet consectetur adipiscing elit.
         </HoverCardContent>
       </HoverCard>
-      </div>
+      </div> */}
     </form>
   );
 }
