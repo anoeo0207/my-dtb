@@ -10,6 +10,9 @@ import {
   LatestInvoicesSkeleton,
   CardsSkeleton
 } from '@/app/ui/skeletons';
+import QR from '@/components/ui/QR';
+import CARD from '@/components/ui/card';
+import TABLE from '@/components/ui/table';
 
 export default async function Page() {
     //const revenue = await fetchRevenue();
@@ -27,16 +30,8 @@ export default async function Page() {
       </h1>
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
         <Suspense fallback={<CardsSkeleton/>}>
-        <CardWrapper />
+          <CARD cardTitle="Overview" value1={totalPaidInvoices} value2={totalPendingInvoices} value3={numberOfInvoices} value4={numberOfCustomers}   />
         </Suspense>
-        {<Card title="Collected" value={totalPaidInvoices} type="collected" />}
-        {<Card title="Pending" value={totalPendingInvoices} type="pending" /> }
-        {<Card title="Total Invoices" value={numberOfInvoices} type="invoices" />}
-        {<Card
-          title="Total Customers"
-          value={numberOfCustomers}
-          type="customers"
-        />}
       </div>
       <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-4 lg:grid-cols-8">
       <Suspense fallback={<RevenueChartSkeleton />}>
@@ -47,6 +42,7 @@ export default async function Page() {
           <LatestInvoices />
         </Suspense>
       </div>
+      <QR />
     </main>
   );
 }
