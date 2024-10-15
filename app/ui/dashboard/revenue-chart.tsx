@@ -20,10 +20,7 @@ export default async function RevenueChart() { // Make component async, remove t
   }
 
   return (
-    <div className="w-full md:col-span-4">
-      <h2 className={`${lusitana.className} mb-4 text-xl md:text-2xl`}>
-        Recent Revenue
-      </h2>
+    <div className="flex justify-center w-full md:col-span-4">
       {/* NOTE: Uncomment this code in Chapter 7 */}
 
       {<div className="rounded-xl bg-gray-50 p-4">

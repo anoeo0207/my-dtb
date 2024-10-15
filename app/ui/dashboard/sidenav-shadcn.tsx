@@ -12,6 +12,18 @@ import {
   Users,
 } from "lucide-react"
 
+import {
+  Command,
+  CommandDialog,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+  CommandSeparator,
+  CommandShortcut,
+} from "@/components/ui/command"
+
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import {
@@ -31,134 +43,134 @@ import {
 } from "@/components/ui/dropdown-menu"
 import  Input from "@/components/ui/input"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
-import { signOut} from '@/auth';
 import { PowerIcon } from '@heroicons/react/24/outline';
+import { signOut} from '@/auth';
+import SEARCH from "@/components/ui/AI-searchbar"
 
 
 
 export const description =
   "A products dashboard with a sidebar navigation and a main content area. The dashboard has a header with a search input and a user menu. The sidebar has a logo, navigation links, and a card with a call to action. The main content area shows an empty state with a call to action."
 
-export default function SideNav2() {
+export default async function SideNav2() {
   return (
-    <div className="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
-      <div className="hidden border-r bg-muted/40 md:block">
-        <div className="flex h-full max-h-screen flex-col gap-2">
-          <div className="flex h-14 items-center border-b px-4 lg:h-[120px] lg:px-6 bg-blue-400">
-            <Link href="/" className="flex items-center gap-2 font-semibold">
-              <Package2 className="h-6 w-6 text-white" />
-              <span className="text-2xl text-white">Acme Inc.</span>
-            </Link>
-          </div>
-          <div className="flex- mt-2">
-            <nav className="grid items-start px-2 text-sm font-medium lg:px-4">
+    <div className=" flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6 sticky top-0 bg-blue-400 text-white">
+        <nav className="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
+          <Link
+            href="/dashboard/acme"
+            className="flex items-center gap-2 text-lg font-semibold md:text-base focus:bg-gray-300 font-bold"
+          >
+            <Package2 className="h-6 w-6" />
+            <span className="sr-only">Acme Inc</span>
+          </Link>
+          <Link
+            href="/dashboard"
+            className="text-foreground transition-colors hover:text-foreground focus:bg-gray-300 font-bold"
+          >
+            Dashboard
+          </Link>
+          <Link
+            href="/dashboard/invoices"
+            className="text-muted-foreground transition-colors hover:text-foreground focus:bg-gray-300 font-bold"
+          >
+            Invoices
+          </Link>
+          <Link
+            href="/dashboard/customers"
+            className="text-muted-foreground transition-colors hover:text-foreground focus:bg-gray-300 font-bold"
+          >
+            Customers
+          </Link>
+          <Link
+            href="/dashboard/setting/account"
+            className="text-muted-foreground transition-colors hover:text-foreground focus:bg-gray-300 font-bold"
+          >
+            Settings
+          </Link>
+        </nav>
+        <Sheet>
+          <SheetTrigger asChild>
+            <Button
+              variant="outline"
+              size="icon"
+              className="shrink-0 md:hidden"
+            >
+              <Menu className="h-5 w-5" />
+              <span className="sr-only">Toggle navigation menu</span>
+            </Button>
+          </SheetTrigger>
+          <SheetContent side="left">
+            <nav className="grid gap-6 text-lg font-medium">
               <Link
-                href="/dashboard"
-                className="flex text-base text-base items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary hover:bg-gray-100"
+                href="#"
+                className="flex items-center gap-2 text-lg font-semibold"
               >
-                <Home className="h-6 w-6" />
+                <Package2 className="h-6 w-6" />
+                <span className="sr-only">Acme Inc</span>
+              </Link>
+              <Link href="#" className="hover:text-foreground">
                 Dashboard
               </Link>
               <Link
-                href="/dashboard/invoices"
-                className="flex text-base items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary hover:bg-gray-100"
-              >
-                <ShoppingCart className="h-6 w-6" />
-                Invoices
-                {/* <Badge className="ml-auto flex h-6 w-6 shrink-0 items-center justify-center rounded-full">
-                  6
-                </Badge> */}
-              </Link>
-              {/* <Link
                 href="#"
-                className="flex items-center gap-3 rounded-lg bg-muted px-3 py-2 text-primary transition-all hover:text-primary"
+                className="text-muted-foreground hover:text-foreground"
               >
-                <Package className="h-4 w-4" />
-                Products{" "}
-              </Link> */}
+                Orders
+              </Link>
               <Link
-                href="/dashboard/customers"
-                className="flex text-base items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary hover:bg-gray-100"
+                href="#"
+                className="text-muted-foreground hover:text-foreground"
               >
-                <Users className="h-6 w-6" />
+                Products
+              </Link>
+              <Link
+                href="#"
+                className="text-muted-foreground hover:text-foreground"
+              >
                 Customers
               </Link>
               <Link
-                href="/dashboard/setting"
-                className="flex text-base items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary hover:bg-gray-100"
+                href="#"
+                className="text-muted-foreground hover:text-foreground"
               >
-                <LineChart className="h-6 w-6" />
                 Analytics
               </Link>
-
-              <form action ={async() => {
-          'use server';
-          await signOut();
-        } }>
-          <button className="flex text-base h-[48px] w-full grow items-center justify-center gap-2 rounded-md p-3 text-sm font-medium md:flex-none md:justify-start md:p-2 md:px-3 hover:bg-red-400">
-            <PowerIcon className="h-6 w-6" />
-            <div className="hidden md:block text-base pl-1">Sign Out</div>
-          </button>
-        </form>
             </nav>
-          </div>
+          </SheetContent>
+        </Sheet>
+        <div className="flex w-full items-center gap-4 md:ml-auto md:gap-2 lg:gap-4">
+          <form className="ml-auto flex-1 sm:flex-initial">
+            <div className="relative">
+              <SEARCH />
+            </div>
+          </form>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="secondary" size="icon" className="rounded-full">
+                <CircleUser className="h-5 w-5" />
+                <span className="sr-only">Toggle user menu</span>
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="bg-white">
+              <DropdownMenuLabel>My Account</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem className="hover:bg-gray-200"><Link href="/dashboard/setting/general">Settings</Link></DropdownMenuItem>
+              <DropdownMenuItem className="hover:bg-gray-200"><Link href="/dashboard/setting/support">Support</Link></DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem className="hover:bg-gray-200">
+                <form action ={async() => {
+                    'use server';
+                    await signOut();
+                  } }>
+                    <button>
+                      Log out
+                    </button>
+                </form>
+        </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
       </div>
-      <div className="flex flex-col">
-        <header className="flex h-14 items-center gap-4 border-b bg-muted/40 px-4 lg:h-[60px] lg:px-6">
-          <Sheet>
-            <SheetTrigger asChild>
-              <Button
-                variant="outline"
-                size="icon"
-                className="shrink-0 md:hidden"
-              >
-                <Menu className="h-5 w-5" />
-              </Button>
-            </SheetTrigger>
-            <SheetContent side="left" className="flex flex-col">
-              <nav className="grid gap-2 text-lg font-medium">
-                <Link
-                  href="#"
-                  className="flex items-center gap-2 text-lg font-semibold"
-                >
-                  <Package2 className="h-6 w-6" />
-                  <span className="sr-only">Acme Inc</span>
-                </Link>
-                <Link
-                  href="#"
-                  className="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
-                >
-                  <Home className="h-5 w-5" />
-                  Dashboard
-                </Link>
-                <Link
-                  href="#"
-                  className="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
-                >
-                  <Package className="h-5 w-5" />
-                  Products
-                </Link>
-                <Link
-                  href="#"
-                  className="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
-                >
-                  <Users className="h-5 w-5" />
-                  Customers
-                </Link>
-                <Link
-                  href="#"
-                  className="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
-                >
-                  <LineChart className="h-5 w-5" />
-                  Analytics
-                </Link>
-              </nav>
-            </SheetContent>
-          </Sheet>
-        </header>
-      </div>
-    </div>
   )
 }
 

@@ -12,7 +12,6 @@ import {
   UserCircleIcon,
 } from '@heroicons/react/24/outline';
 import Link from 'next/link';
-//import { Button } from '@/app/ui/button';
 import { Button, buttonVariants } from '@/components/ui/button';
 import Input from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -48,7 +47,7 @@ export default function EditInvoiceForm({
   
   return (
     <Sheet>
-      <SheetTrigger>Open</SheetTrigger>
+      <SheetTrigger>Opennnnnnnnnn</SheetTrigger>
       <SheetContent className="bg-white">
         <SheetHeader>
           <SheetTitle className="text-center">Edit Invoices</SheetTitle>
@@ -63,7 +62,7 @@ export default function EditInvoiceForm({
                 Choose customer
               </label>
               <div className="relative">
-                <Select name="customerId" defaultValue="" aria-describedby="customer-error">
+                <Select id="customerId" name="customerId" defaultValue={invoice.customer_id} aria-describedby="customer-error">
                   <SelectTrigger className="w-[180px] bg-white-200 w-full">
                     <SelectValue defaultValue={invoice.customer_id} />
                   </SelectTrigger>

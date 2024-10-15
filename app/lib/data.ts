@@ -6,6 +6,7 @@ import {
   InvoicesTable,
   LatestInvoiceRaw,
   Revenue,
+  TotalInvoice
 } from './definitions';
 import { formatCurrency } from './utils';
 
@@ -15,8 +16,6 @@ export async function fetchRevenue() {
     // Don't do this in production :)
 
     console.log('Fetching revenue data...');
-    await new Promise((resolve) => setTimeout(resolve, 1000)); //Set loading time for web
-
     const data = await sql<Revenue>`SELECT * FROM revenue`;
 
     console.log('Data fetch completed after 3 seconds.');
@@ -172,9 +171,35 @@ export async function fetchCustomers() {
         id,
         name,
         email,
-        image_url
+        image_url,
+        total_invoices,
+        total_paid,
+        total_pending
       FROM customers
       ORDER BY name ASC
+    `;
+
+    const customers = data.rows;
+    return customers;
+  } catch (err) {
+    console.error('Database Error:', err);
+    throw new Error('Failed to fetch all customers.');
+  }
+}
+
+export async function fetchCustomersById(id : string) {
+  try {
+    const data = await sql<CustomerField>`
+      SELECT
+        id,
+        name,
+        email,
+        image_url,
+        total_invoices,
+        total_paid,
+        total_pending
+      FROM customers
+      WHERE customers.id = ${id}
     `;
 
     const customers = data.rows;
@@ -215,5 +240,24 @@ export async function fetchFilteredCustomers(query: string) {
   } catch (err) {
     console.error('Database Error:', err);
     throw new Error('Failed to fetch customer table.');
+  }
+}
+
+export async function fetchTotalInvoices() {
+  try {
+    console.log('Fetching invoices data...');
+    const data = await sql<TotalInvoice>`
+    UPDATE customers
+SET 
+    total_paid = (SELECT COUNT(*) FROM invoices WHERE customer_id = customers.id),
+    total_pending = (SELECT COUNT(*) FROM invoices WHERE customer_id = customers.id AND status = 'pending'),
+    total_invoices = total_paid + total_pending
+WHERE id IN (SELECT DISTINCT customer_id FROM invoices);
+    `;
+    const total = data.rows;
+    return
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch invoices data.');
   }
 }

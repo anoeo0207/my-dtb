@@ -1,11 +1,11 @@
-import Form from '@/app/ui/invoices/edit-form';
-import { fetchCustomers, fetchInvoiceById } from '@/app/lib/data';
+import AnalyzeCustomer from '@/app/ui/invoices/analyze-form';
+import { fetchCustomers, fetchCustomersById } from '@/app/lib/data';
 import {notFound} from 'next/navigation';
 
 export default async function Page({ params }: { params: { id: string } }) {
     const id = params.id;
     const [invoice, customers] = await Promise.all([
-        fetchInvoiceById(id),
+        fetchCustomersById(id),
         fetchCustomers(),
       ]);
       if (!invoice) {
@@ -13,7 +13,7 @@ export default async function Page({ params }: { params: { id: string } }) {
       }
     return (
     <main>
-      <Form invoice={invoice} customers={customers} />
+      <AnalyzeCustomer invoice={invoice} customers={customers} />
     </main>
   );
 }

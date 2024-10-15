@@ -1,104 +1,3 @@
-// //import { Card } from '@/app/ui/dashboard/cards';
-// import RevenueChart from '@/app/ui/dashboard/revenue-chart';
-// import LatestInvoices from '@/app/ui/dashboard/latest-invoices';
-// import { lusitana } from '@/app/ui/fonts';
-// import { fetchCardData } from '@/app/lib/data'; // Remove fetchLatestInvoices
-// import { Suspense } from 'react';
-// //import CardWrapper from '@/app/ui/dashboard/cards';
-// import {
-//   RevenueChartSkeleton,
-//   LatestInvoicesSkeleton,
-//   CardsSkeleton
-// } from '@/app/ui/skeletons';
-// import CustomCard from '@/components/ui/customCard';
-
-// import {
-//   HoverCard,
-//   HoverCardContent,
-//   HoverCardTrigger,
-// } from "@/components/ui/hover-card"
-
-// import DashboardLI from '@/app/ui/dashboard/lastest-invoices-shadcn';
-// import { Chart } from '@/app/ui/dashboard/chart';
-
-
-// export default async function Page() {
-//     //const revenue = await fetchRevenue();
-//     //const latestInvoices = await fetchLatestInvoices(); // wait for fetchRevenue() to finish
-//     const {
-//         numberOfInvoices,
-//         numberOfCustomers,
-//         totalPaidInvoices,
-//         totalPendingInvoices,
-//     } = await fetchCardData(); // wait for fetchLatestInvoices() to finish
-//   return (
-//     <main>
-//       <h1 className={`${lusitana.className} mb-4 text-xl md:text-2xl`}>
-//         Dashboard
-//       </h1>
-//       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-//         <Suspense fallback={<CardsSkeleton/>}>
-
-//         <CustomCard 
-//         title="Collected" 
-//         description="" 
-//         content={totalPaidInvoices}
-//         footer="" 
-//       />
-
-//         <CustomCard 
-//         title="Pending" 
-//         description="" 
-//         content={totalPendingInvoices}
-//         footer="" 
-//       />
-
-//       <CustomCard 
-//         title="Total Invoices" 
-//         description="" 
-//         content={numberOfInvoices}
-//         footer="" 
-//       />
-
-//       <CustomCard 
-//         title="Total Customers" 
-//         description="" 
-//         content={numberOfCustomers}
-//         footer="" 
-//       />
-
-//         </Suspense>
-//       </div>
-      
-//       <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-4 lg:grid-cols-8">
-//       <Suspense fallback={<RevenueChartSkeleton />}>
-//           <RevenueChart />
-//         </Suspense>
-
-//       <Suspense fallback={<LatestInvoicesSkeleton />}>
-//           <DashboardLI />
-//         </Suspense>
-//       </div>
-
-//       <div className="pt-12">
-//             <HoverCard>
-//         <HoverCardTrigger><b>@Acme_2024</b></HoverCardTrigger>
-//         <HoverCardContent className="bg-white">
-//           <b>@acme_2024 </b>
-//         Lorem ipsum dolor sit amet consectetur adipiscing elit.
-//         </HoverCardContent>
-//             </HoverCard>
-//       </div>
-
-//       <div>
-//         <DashboardLI />
-//       </div>
-
-//       <Chart />
-//     </main>
-//   );
-// }
-
 import Link from "next/link"
 import {
   Activity,
@@ -111,6 +10,8 @@ import {
   Search,
   Users,
 } from "lucide-react"
+
+import RevenueChart from "@/app/ui/dashboard/revenue-chart"
 
 import {
   Avatar,
@@ -144,33 +45,29 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-import { fetchCardData } from '@/app/lib/data';
-import DashboardLI from "@/app/ui/dashboard/lastest-invoices-shadcn";
-import {
-    RevenueChartSkeleton,
-    LatestInvoicesSkeleton,
-    CardsSkeleton
-  } from '@/app/ui/skeletons';
-import RevenueChart from '@/app/ui/dashboard/revenue-chart';
-import { Suspense } from 'react';
-import { Component } from "@/app/ui/dashboard/chart";
+
+import { fetchCardData } from "@/app/lib/data"
+import { fetchLatestInvoices } from '@/app/lib/data';
+import { lusitana } from '@/app/ui/fonts';
 
 export const description =
-  "An application shell with a header and main content area. The header has a navbar, a search input and and a user nav dropdown. The user nav is toggled by a button with an avatar image."
+  "An application shell with a header and main content area. The header has a navbar, a search input and and a user nav dropdown. The user nav is toggled by a button with an avatar image. The main content area is divided into two rows. The first row has a grid of cards with statistics. The second row has a grid of cards with a table of recent transactions and a list of recent sales."
 
 export default async function Page() {
   const {
-            numberOfInvoices,
-            numberOfCustomers,
-            totalPaidInvoices,
-            totalPendingInvoices,
-        } = await fetchCardData();
-        
+    numberOfInvoices,
+    numberOfCustomers,
+    totalPaidInvoices,
+    totalPendingInvoices, 
+  } = await fetchCardData();
+
+  const latestInvoices = await fetchLatestInvoices();
+            
   return (
-    <div className="flex delay-500 duration-1000 min-h-screen w-full flex-col">
+    <div className="flex min-h-screen w-full flex-col">
       <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8">
         <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4">
-          <Card x-chunk="dashboard-01-chunk-0">
+          <Card x-chunk="dashboard-01-chunk-0" className="hover:bg-gray-200">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">
                 Collected
@@ -184,12 +81,12 @@ export default async function Page() {
               </p>
             </CardContent>
           </Card>
-          <Card x-chunk="dashboard-01-chunk-1">
+          <Card x-chunk="dashboard-01-chunk-1" className="hover:bg-gray-200">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">
-                Pending
+                Total Pending
               </CardTitle>
-              <Activity className="h-4 w-4 text-muted-foreground" />
+              <Users className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{totalPendingInvoices}</div>
@@ -198,7 +95,7 @@ export default async function Page() {
               </p>
             </CardContent>
           </Card>
-          <Card x-chunk="dashboard-01-chunk-2">
+          <Card x-chunk="dashboard-01-chunk-2" className="hover:bg-gray-200">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">Total Invoices</CardTitle>
               <CreditCard className="h-4 w-4 text-muted-foreground" />
@@ -210,10 +107,10 @@ export default async function Page() {
               </p>
             </CardContent>
           </Card>
-          <Card x-chunk="dashboard-01-chunk-3">
+          <Card x-chunk="dashboard-01-chunk-3" className="hover:bg-gray-200">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">Total Customers</CardTitle>
-              <Users className="h-4 w-4 text-muted-foreground" />
+              <Activity className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{numberOfCustomers}</div>
@@ -223,21 +120,57 @@ export default async function Page() {
             </CardContent>
           </Card>
         </div>
-      </main>
-
-      <div className="grid mb-10 grid-cols-2 md:grid-cols-1 lg:grid-cols-2 border-2">
-        <div className="w-full">
-          <Suspense fallback={<RevenueChartSkeleton />}>
+        <div className="grid gap-4 md:gap-8 lg:grid-cols-2 xl:grid-cols-2">
+          <div className="w-full"> 
             <RevenueChart />
-          </Suspense>
+          </div>
+          <Card x-chunk="dashboard-01-chunk-5">
+          <CardHeader className="flex flex-row items-center">
+            <div className="grid gap-2">
+              <CardTitle><h1 className={`${lusitana.className} mb-4 text-xl md:text-2xl`}>
+        Lastest Invoices
+      </h1>
+      </CardTitle>
+              <CardDescription>
+                Recent invoices from your company.
+              </CardDescription>
+            </div>
+          </CardHeader>
+          <CardContent>
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead className="pl-4">Customer</TableHead>
+                  <TableHead className="text-right mr-5">Amount</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {latestInvoices.map((invoice, i) => (
+                  <TableRow key={i}>
+                    <TableCell>
+                      <div className="flex">
+                        <Avatar>
+                          <AvatarImage src={invoice.image_url} />
+                          <AvatarFallback>CN</AvatarFallback>
+                        </Avatar>
+                        <div className="font-medium pl-2">
+                          <p className="font-bold">{invoice.name}</p>
+                          <div className="hidden text-sm text-muted-foreground md:inline">
+                            {invoice.email}
+                          </div>
+                        </div>
+                        </div>
+                    </TableCell>
+                    <TableCell className="text-right">{invoice.amount}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </CardContent>
+        </Card>
         </div>
-
-        <div className="mt-4 w-full" >
-          <Suspense fallback={<LatestInvoicesSkeleton />}>
-            <DashboardLI />
-          </Suspense>
-        </div>
-      </div>
+      </main>
     </div>
   )
 }
+

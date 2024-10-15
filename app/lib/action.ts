@@ -50,6 +50,21 @@ export async function createInvoice(prevState: State, formData: FormData) {
       INSERT INTO invoices (customer_id, amount, status, date)
       VALUES (${customerId}, ${amountInCents}, ${status}, ${date})
     `;
+
+    await sql`
+      UPDATE customers
+SET 
+    total_paid = (SELECT COUNT(*) FROM invoices WHERE customer_id = customers.id AND status = 'paid'),
+    total_pending = (SELECT COUNT(*) FROM invoices WHERE customer_id = customers.id AND status = 'pending')
+WHERE id IN (SELECT DISTINCT customer_id FROM invoices)
+    `;
+
+    await sql`
+      UPDATE customers
+SET 
+    total_invoices = total_paid + total_pending
+WHERE id IN (SELECT DISTINCT customer_id FROM invoices)
+    `;
   } catch (error) {
     // If a database error occurs, return a more specific error.
     return {
@@ -65,7 +80,6 @@ export async function createInvoice(prevState: State, formData: FormData) {
 // Use Zod to update the expected types
 const UpdateInvoice = FormSchema.omit({ id: true, date: true });
  
-// ...
  
 export async function updateInvoice(
   id: string,
@@ -94,10 +108,24 @@ export async function updateInvoice(
       SET customer_id = ${customerId}, amount = ${amountInCents}, status = ${status}
       WHERE id = ${id}
     `;
+
+    await sql`
+      UPDATE customers
+SET 
+    total_paid = (SELECT COUNT(*) FROM invoices WHERE customer_id = customers.id AND status = 'paid'),
+    total_pending = (SELECT COUNT(*) FROM invoices WHERE customer_id = customers.id AND status = 'pending')
+WHERE id IN (SELECT DISTINCT customer_id FROM invoices)
+    `;
+
+    await sql`
+      UPDATE customers
+SET 
+    total_invoices = total_paid + total_pending
+WHERE id IN (SELECT DISTINCT customer_id FROM invoices)
+    `;
   } catch (error) {
     return { message: 'Database Error: Failed to Update Invoice.' };
   }
- 
   revalidatePath('/dashboard/invoices');
   redirect('/dashboard/invoices');
 }
@@ -105,8 +133,43 @@ export async function updateInvoice(
 export async function deleteInvoice(id: string) {
   try {
     await sql`DELETE FROM invoices WHERE id = ${id}`;
+
+    await sql`
+      UPDATE customers
+SET 
+    total_paid = (SELECT COUNT(*) FROM invoices WHERE customer_id = customers.id AND status = 'paid'),
+    total_pending = (SELECT COUNT(*) FROM invoices WHERE customer_id = customers.id AND status = 'pending')
+WHERE id IN (SELECT DISTINCT customer_id FROM invoices)
+    `;
+
+    await sql`
+      UPDATE customers
+SET 
+    total_invoices = total_paid + total_pending
+WHERE id IN (SELECT DISTINCT customer_id FROM invoices)
+    `;
     revalidatePath('/dashboard/invoices');
     return { message: 'Deleted Invoice.' };
+  } catch (error) {
+    return { message: 'Database Error: Failed to Delete Invoice.' };
+  }
+}
+
+export async function deleteSystem(password: string) {
+  try {
+    await sql`
+      DELETE FROM invoices
+    `;
+
+    await sql`
+      UPDATE customers
+SET 
+    total_invoices = 0,
+    total_paid = 0,
+    total_pending = 0;
+    `;
+    revalidatePath('/dashboard/acme');
+    return { message: 'Deleted successfully.' };
   } catch (error) {
     return { message: 'Database Error: Failed to Delete Invoice.' };
   }
