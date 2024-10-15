@@ -1,14 +1,9 @@
-import path from 'path';
-
-const __dirname = new URL('.', import.meta.url).pathname;
+/** @type {import('next').NextConfig} */
 
 const nextConfig = {
- webpack: (config) => {
-config.resolve.alias = {
- ...config.resolve.alias,
-'@': path.resolve(__dirname, './'),
- };
-return config;
-},
+    experimental: {
+        ppr: 'incremental', //incremental value allows to adopt PPR for specific routes
+    },
 };
+
 export default nextConfig;
