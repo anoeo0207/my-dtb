@@ -9,6 +9,7 @@ import {
   TotalInvoice
 } from './definitions';
 import { formatCurrency } from './utils';
+import { TotalMoney } from './definitions';
 
 export async function fetchRevenue() {
   try {
@@ -112,6 +113,33 @@ export async function fetchFilteredInvoices(
     `;
 
     return invoices.rows;
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch invoices.');
+  }
+}
+
+export async function fetchFilteredCustomersOverview(
+  query: string,
+) {
+  try {
+    const customer = await sql<CustomersTableType>`
+      SELECT
+        customers.name,
+        customers.email,
+        customers.image_url,
+        customers.total_invoices,
+        customers.total_paid,
+        customers.total_pending
+      FROM customers
+      WHERE
+        customers.name ILIKE ${`%${query}%`} OR
+        customers.email ILIKE ${`%${query}%`} OR
+        customers.image_url ILIKE ${`%${query}%`}
+      ORDER BY customers.name DESC
+    `;
+
+    return customer.rows;
   } catch (error) {
     console.error('Database Error:', error);
     throw new Error('Failed to fetch invoices.');
@@ -256,6 +284,27 @@ WHERE id IN (SELECT DISTINCT customer_id FROM invoices);
     `;
     const total = data.rows;
     return
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch invoices data.');
+  }
+}
+
+export async function fetchTotalMoney(id: string) {
+  try {
+    console.log('Fetching money data...');
+    const data = await sql<TotalMoney>`
+      SELECT 
+        ${id} AS customer_id,
+        COALESCE(SUM(amount), 0) AS total_amount,  
+        COALESCE(SUM(CASE WHEN status = 'paid' THEN amount ELSE 0 END), 0) AS total_money_paid,
+        COALESCE(SUM(CASE WHEN status = 'pending' THEN amount ELSE 0 END), 0) AS total_money_pending  
+      FROM invoices
+      WHERE invoices.customer_id = ${id};
+
+    `;
+    const res = data.rows;
+    return res;
   } catch (error) {
     console.error('Database Error:', error);
     throw new Error('Failed to fetch invoices data.');

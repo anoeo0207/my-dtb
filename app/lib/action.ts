@@ -7,6 +7,57 @@ import { redirect } from 'next/navigation';
 import { signIn} from '@/auth';
 import { AuthError } from 'next-auth';
 
+export type DataForm = {
+  errors?: {
+    name?: string[];
+    email?: string[];
+    image?: string[];
+  };
+  message?: string | null;
+};
+
+const AddCustomerSchema = z.object({
+  name: z.string().min(1, "Name is required"), 
+  email: z.string().email("Invalid email format"),
+  image: z.string().url("Invalid URL format").optional(),
+});
+
+export async function AddCustomer(prevState: DataForm, formData: FormData) {
+  const validatedFields = AddCustomerSchema.safeParse({
+    name: formData.get('customerName'),
+    email: formData.get('customerEmail'),
+    image: formData.get('customerImageUrl'),
+  });
+ 
+  if (!validatedFields.success) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: 'Missing Fields. Failed to Create Invoice.',
+    };
+  }
+ 
+  // Prepare data for insertion into the database
+  const { name, email, image } = validatedFields.data;
+ 
+  // Insert data into the database
+  try {
+    await sql`
+      INSERT INTO customers (name, email, image_url, total_invoices, total_paid, total_pending)
+      VALUES (${name}, ${email}, ${image}, ${0}, ${0}, ${0})
+    `;
+  } catch (error) {
+
+    return {
+      message: 'Database Error: Failed to Create Invoice.',
+    };
+  }
+ 
+  // Revalidate the cache for the invoices page and redirect the user.
+  revalidatePath('/dashboard/customers/overview');
+  redirect('/dashboard/customers/overview');
+}
+
+
 const FormSchema = z.object({
   id: z.string(),
   customerId: z.string({
@@ -80,7 +131,6 @@ WHERE id IN (SELECT DISTINCT customer_id FROM invoices)
 // Use Zod to update the expected types
 const UpdateInvoice = FormSchema.omit({ id: true, date: true });
  
- 
 export async function updateInvoice(
   id: string,
   prevState: State,
@@ -149,6 +199,31 @@ SET
 WHERE id IN (SELECT DISTINCT customer_id FROM invoices)
     `;
     revalidatePath('/dashboard/invoices');
+    return { message: 'Deleted Invoice.' };
+  } catch (error) {
+    return { message: 'Database Error: Failed to Delete Invoice.' };
+  }
+}
+
+export async function deleteCustomer(id: string) {
+  try {
+    await sql`DELETE FROM customers WHERE id = ${id}`;
+
+    await sql`
+      UPDATE customers
+SET 
+    total_paid = (SELECT COUNT(*) FROM invoices WHERE customer_id = customers.id AND status = 'paid'),
+    total_pending = (SELECT COUNT(*) FROM invoices WHERE customer_id = customers.id AND status = 'pending')
+WHERE id IN (SELECT DISTINCT customer_id FROM invoices)
+    `;
+
+    await sql`
+      UPDATE customers
+SET 
+    total_invoices = total_paid + total_pending
+WHERE id IN (SELECT DISTINCT customer_id FROM invoices)
+    `;
+    revalidatePath('/dashboard/customers/overview');
     return { message: 'Deleted Invoice.' };
   } catch (error) {
     return { message: 'Database Error: Failed to Delete Invoice.' };

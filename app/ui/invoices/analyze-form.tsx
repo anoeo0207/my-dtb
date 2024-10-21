@@ -2,14 +2,13 @@
 
 import { useState } from "react"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { ArrowLeft, Mail, Phone, MapPin, DollarSign, Calendar } from "lucide-react"
+import { ArrowLeft, Mail, Phone, MapPin, DollarSign, Calendar, ReceiptText } from "lucide-react"
 import Link from "next/link"
-import { InvoiceForm } from "@/app/lib/definitions"
 import { CustomerField } from "@/app/lib/definitions"
-import { fetchCustomers } from "@/app/lib/data"
+import { TotalMoney } from "@/app/lib/definitions"
+import { formatCurrency } from "@/app/lib/utils"
 
 interface CustomerData {
   name: string
@@ -47,10 +46,10 @@ const customerData: CustomerData = {
 
 export default function AnalyzeCustomer({
   invoice,
-  customers,
+  money,
 }: {
   invoice: CustomerField[];
-  customers: CustomerField[];
+  money: TotalMoney[]; 
 }) {
   const [activeTab, setActiveTab] = useState("overview")
   const formatCurrency = (amount: number) => {
@@ -61,7 +60,7 @@ export default function AnalyzeCustomer({
     <div className="flex flex-col min-h-screen bg-background">
       <header >
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-            <Link href="/dashboard/customers" className="flex items-center space-x-2">
+            <Link href="/dashboard/customers/overview" className="flex items-center space-x-2">
               <ArrowLeft className="h-6 w-6" />
               <span className="font-semibold">Back to Customers</span>
             </Link>
@@ -78,7 +77,7 @@ export default function AnalyzeCustomer({
                     <AvatarImage src={customer.image_url} />
                   </Avatar>
                   <h2 className="text-2xl font-bold">{customer.name}</h2>
-                  <p className="text-sm text-muted-foreground mb-4">Customer ID: {customer.id}</p>
+                  <p className="text-sm text-muted-foreground mb-4 font-semibold">Customer ID: {customer.id}</p>
                   <div className="grid gap-2 text-sm">
                     <div className="flex items-center">
                       <Mail className="mr-2 h-4 w-4" />
@@ -115,7 +114,7 @@ export default function AnalyzeCustomer({
                       <Card>
                         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                           <CardTitle className="text-sm font-medium">Total Invoice</CardTitle>
-                          <DollarSign className="h-4 w-4 text-muted-foreground" />
+                          <ReceiptText className="h-4 w-4 text-muted-foreground" />
                         </CardHeader>
                         <CardContent>
                           <div className="text-2xl font-bold">{customer.total_invoices}</div>
@@ -124,7 +123,7 @@ export default function AnalyzeCustomer({
                       <Card>
                         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                           <CardTitle className="text-sm font-medium">Total Paid</CardTitle>
-                          <DollarSign className="h-4 w-4 text-muted-foreground" />
+                          <ReceiptText className="h-4 w-4 text-muted-foreground" />
                         </CardHeader>
                         <CardContent>
                           <div className="text-2xl font-bold text-green-600">{customer.total_paid}</div>
@@ -133,7 +132,7 @@ export default function AnalyzeCustomer({
                       <Card>
                         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                           <CardTitle className="text-sm font-medium">Total Pending</CardTitle>
-                          <DollarSign className="h-4 w-4 text-muted-foreground" />
+                          <ReceiptText className="h-4 w-4 text-muted-foreground" />
                         </CardHeader>
                         <CardContent>
                           <div className="text-2xl font-bold text-yellow-600">{customer.total_pending}</div>
@@ -141,6 +140,39 @@ export default function AnalyzeCustomer({
                       </Card>
                     </div>
                     ))}
+
+                  {money?.map((data) => ( 
+                    <div className="grid gap-4 md:grid-cols-3">
+                    <Card>
+                      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                        <CardTitle className="text-sm font-bold">Total Money</CardTitle>
+                        <DollarSign className="h-4 w-4 text-muted-foreground" />
+                      </CardHeader>
+                      <CardContent>
+                        <div className="text-2xl font-bold">${data.total_amount}</div>
+                      </CardContent>
+                    </Card>
+                    <Card>
+                        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                          <CardTitle className="text-sm font-bold">Total Money Paid</CardTitle>
+                          <DollarSign className="h-4 w-4 text-muted-foreground" />
+                        </CardHeader>
+                        <CardContent>
+                          <div className="text-2xl font-bold text-green-600">${data.total_money_paid}</div>
+                        </CardContent>
+                      </Card>
+                      <Card>
+                        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                          <CardTitle className="text-sm font-bold">Total Money Pending</CardTitle>
+                          <DollarSign className="h-4 w-4 text-muted-foreground" />
+                        </CardHeader>
+                        <CardContent>
+                          <div className="text-2xl font-bold text-yellow-600">${data.total_money_pending}</div>
+                        </CardContent>
+                      </Card>
+                  </div>
+                  ))}
+
                   </CardContent>
                 </Card>
                 <Card>

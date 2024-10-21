@@ -98,3 +98,10 @@ export type TotalInvoice = {
   total_paid: number;
   total_pending: number;
 };
+
+export type TotalMoney = {
+  customer_id: string;
+  total_amount: number;
+  total_money_paid: number;
+  total_money_pending: number;
+};

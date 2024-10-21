@@ -15,6 +15,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
 import { PlusCircle } from 'lucide-react';
+import { deleteCustomer } from '@/app/lib/action'; 
 
 export function CreateInvoice() {
   return (
@@ -60,5 +61,17 @@ export function DeleteInvoice({ id }: { id: string }) {
   </AlertDialogContent>
 </AlertDialog>
     </form>
+  );
+}
+
+export function RemoveCustomer({ id }: { id: string }) {
+  const deleteCustomerWithId = () => {
+      deleteCustomer(id);
+  };
+
+  return (
+    <p className="text-red-600 font-semibold" onClick={deleteCustomerWithId}>
+      Delete Customer
+    </p>
   );
 }

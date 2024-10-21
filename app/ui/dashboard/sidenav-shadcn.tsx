@@ -10,19 +10,12 @@ import {
   Search,
   ShoppingCart,
   Users,
+  ChevronsDown,
+  ChevronDown,
+  TableOfContents,
+  Plus
 } from "lucide-react"
 
-import {
-  Command,
-  CommandDialog,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-  CommandSeparator,
-  CommandShortcut,
-} from "@/components/ui/command"
 
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -75,12 +68,23 @@ export default async function SideNav2() {
           >
             Invoices
           </Link>
-          <Link
-            href="/dashboard/customers"
-            className="text-muted-foreground transition-colors hover:text-foreground focus:bg-gray-300 font-bold"
-          >
-            Customers
-          </Link>
+          <DropdownMenu>
+            <DropdownMenuTrigger className="text-muted-foreground transition-colors hover:text-foreground focus:bg-gray-300 font-bold">
+              <div className="flex">
+                Customers 
+                <ChevronDown className="h-5 w-5 justify-center" />
+              </div>
+              </DropdownMenuTrigger>
+            <DropdownMenuContent className="bg-white">
+              <DropdownMenuItem className="hover:bg-gray-300 font-semibold">
+                <Link href="/dashboard/customers/overview" className="flex" ><TableOfContents className="h-5 w-5 mr-2" />Overview</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem className="hover:bg-gray-300 font-semibold">
+                <Link href="/dashboard/customers/add" className="flex"><Plus className="h-5 w-5 mr-2" />Add customer</Link>
+              </DropdownMenuItem>
+
+            </DropdownMenuContent>
+          </DropdownMenu>
           <Link
             href="/dashboard/setting/account"
             className="text-muted-foreground transition-colors hover:text-foreground focus:bg-gray-300 font-bold"
