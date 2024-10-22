@@ -19,7 +19,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { signOut} from '@/auth';
-import SEARCH from "@/components/ui/AI-searchbar"
+// import SEARCH from "@/components/ui/AI-searchbar"
 
 export default async function SideNav2() {
   return (
@@ -121,7 +121,7 @@ export default async function SideNav2() {
         <div className="flex w-full items-center gap-4 md:ml-auto md:gap-2 lg:gap-4">
           <form className="ml-auto flex-1 sm:flex-initial">
             <div className="relative">
-              <SEARCH />
+              {/* <SEARCH /> */}
             </div>
           </form>
           <DropdownMenu>
