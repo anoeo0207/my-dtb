@@ -60,11 +60,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { fetchTotalMoney } from "@/app/lib/data"
-
 import { RemoveCustomer } from "@/app/ui/invoices/buttons"
-
-export const description =
-  "An products dashboard with a sidebar navigation. The sidebar has icon navigation. The content area has a breadcrumb and search in the header. It displays a list of products in a table with actions."
 
 export default async function Page () {
     const invoices = await fetchCustomers();
@@ -82,9 +78,9 @@ export default async function Page () {
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <div className="mb-5">
-                    <Search placeholder="Search invoices..." />
-                  </div>
+                  {/* <div className="mb-5">
+                    <searchCustomers />
+                  </div> */}
                   <div className="overflow-auto max-h-2/3">
                   <Table>
                     <TableHeader>

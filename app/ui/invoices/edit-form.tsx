@@ -40,7 +40,7 @@ const [isLoading, setIsLoading] = useState(false)
   }
 
   return (
-    <div className="container mx-auto px-4 py-8 bg-gray-50 min-h-screen mt-20">
+    <div className="container mx-auto px-4 py-8 min-h-screen mt-20">
       <Card className="max-w-2xl mx-auto shadow-lg border-blue-400">
         <CardHeader className="bg-blue-600 text-white rounded-t-lg">
           <CardTitle className="text-2xl font-bold flex items-center justify-center">
