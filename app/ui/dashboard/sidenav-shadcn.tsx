@@ -1,31 +1,14 @@
+import React from 'react'; 
 import Link from "next/link"
 import {
-  Bell,
   CircleUser,
-  Home,
-  LineChart,
   Menu,
-  Package,
   Package2,
-  Search,
-  ShoppingCart,
-  Users,
-  ChevronsDown,
   ChevronDown,
   TableOfContents,
   Plus
 } from "lucide-react"
-
-
-import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -34,9 +17,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import  Input from "@/components/ui/input"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
-import { PowerIcon } from '@heroicons/react/24/outline';
 import { signOut} from '@/auth';
 import SEARCH from "@/components/ui/AI-searchbar"
 

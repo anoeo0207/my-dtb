@@ -1,6 +1,5 @@
 'use client'
-
-import React from 'react';
+import React from 'react'; 
 import { PencilIcon, TrashIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { deleteInvoice } from '@/app/lib/action';

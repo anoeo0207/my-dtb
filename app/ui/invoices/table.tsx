@@ -18,6 +18,7 @@ import {
   Tabs,
   TabsContent
 } from "@/components/ui/tabs"
+import React from 'react'; 
 
 import { UpdateInvoice, DeleteInvoice } from '@/app/ui/invoices/buttons';
 import InvoiceStatus from '@/app/ui/invoices/status';

@@ -1,4 +1,5 @@
 import { fetchCardData } from '@/app/lib/data';
+import React from 'react'; 
 import {
   BanknotesIcon,
   ClockIcon,

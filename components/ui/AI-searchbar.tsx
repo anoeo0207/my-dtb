@@ -3,6 +3,7 @@ import { useState, useEffect } from "react"
 import Input from "@/components/ui/input"
 import { Search } from "lucide-react"
 import Link from "next/link";
+import React from 'react'; 
 
 export default function SEARCH() {
   const [searchTerm, setSearchTerm] = useState("")
