@@ -1,6 +1,7 @@
 import Form from '@/app/ui/invoices/create-form';
 import { fetchCustomers } from '@/app/lib/data';
 import { Metadata} from 'next';
+import React from 'react';
 
 export const metadata: Metadata = {
   title: 'Create Invoices',

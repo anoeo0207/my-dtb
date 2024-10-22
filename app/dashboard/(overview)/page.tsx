@@ -4,9 +4,8 @@ import {
   DollarSign,
   Users,
 } from "lucide-react"
-
+import React from 'react';
 import RevenueChart from "@/app/ui/dashboard/revenue-chart"
-
 import {
   Avatar,
   AvatarFallback,
@@ -27,7 +26,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-
 import { fetchCardData } from "@/app/lib/data"
 import { fetchLatestInvoices } from '@/app/lib/data';
 import { lusitana } from '@/app/ui/fonts';

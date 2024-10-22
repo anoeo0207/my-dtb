@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button"
 import { UserCircle, Mail, Image, Upload } from "lucide-react"
 import { DataForm, AddCustomer } from "@/app/lib/action"
 import { Checkbox } from "@/components/ui/checkbox";
+import React from 'react';
 
 export default function AddCustomerForm() {
     const initialState: DataForm = {message: null, errors: {}};

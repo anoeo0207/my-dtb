@@ -1,4 +1,6 @@
 'use client'
+
+import React from 'react';
 import { useState } from 'react'
 import { AlertTriangle } from 'lucide-react'
 import { Label } from "@/components/ui/label"
@@ -6,15 +8,12 @@ import { Button } from "@/components/ui/button"
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
 import Input from "@/components/ui/input"
-
 import { deleteSystem } from '@/app/lib/action'
-import { redirect } from 'next/dist/server/api-utils'
 
 const confirm = 'I AGREE TO DELETE ALL INFORMATION';
 

@@ -1,6 +1,7 @@
 import AnalyzeCustomer from '@/app/ui/invoices/analyze-form';
 import { fetchTotalMoney, fetchCustomersById } from '@/app/lib/data';
 import {notFound} from 'next/navigation';
+import React from 'react';
 
 export default async function Page({ params }: { params: { id: string } }) {
     const id = await params.id;
