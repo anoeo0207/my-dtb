@@ -69,7 +69,7 @@ export default async function Page () {
                     </TableHeader>
                     <TableBody>
                     {invoices?.map((invoice) => (
-                      <TableRow>
+                      <TableRow key={invoice.id}>
                         <TableCell className="hidden sm:table-cell">
                           <Avatar className="h-12 w-12">
                             <AvatarImage src={invoice.image_url} />
