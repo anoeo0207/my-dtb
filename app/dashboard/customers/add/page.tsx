@@ -11,7 +11,7 @@ import React from 'react';
 
 export default function AddCustomerForm() {
     const initialState: DataForm = {message: null, errors: {}};
-    const [state, formAction] = useActionState(AddCustomer, initialState);
+    const [,formAction] = useActionState(AddCustomer, initialState);
     return (
         <div className="min-h-screen flex items-center justify-center bg-gradient-to-br p-4">
             <Card className="w-full max-w-4xl mx-auto bg-white/90 backdrop-blur-sm shadow-xl rounded-lg">
@@ -67,7 +67,7 @@ export default function AddCustomerForm() {
                             <div className="border-2 border-dashed border-blue-300 rounded-md p-6 flex flex-col items-center justify-center cursor-pointer hover:border-blue-500 transition-colors">
                                 <Upload className="h-12 w-12 text-blue-500 mb-2" />
                                 <p className="text-sm text-blue-600 text-center">
-                                    Drag and drop an image file here, or click to select a file"
+                                    Drag and drop an image file here, or click to select a file
                                 </p>
                                 <Input
                                     type="file"

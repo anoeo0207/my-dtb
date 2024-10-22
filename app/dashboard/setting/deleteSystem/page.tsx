@@ -58,7 +58,7 @@ export default function Dashboard() {
               </div>
               <div className="space-y-2">
                 <Label htmlFor="password" className="text-red-700">
-                  Enter "I AGREE TO DELETE ALL INFORMATION" to confirm deletion
+                  Enter &quot;I AGREE TO DELETE ALL INFORMATION&quot; to confirm deletion
                 </Label>
                 <Input
                   id="password"

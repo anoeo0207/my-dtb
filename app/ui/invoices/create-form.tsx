@@ -9,7 +9,7 @@ import {
   EllipsisHorizontalCircleIcon
 } from '@heroicons/react/24/outline';
 import { createInvoice, State } from '@/app/lib/action';
-import { Button, buttonVariants } from '@/components/ui/button';
+import { Button} from '@/components/ui/button';
 import Input from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio";
@@ -32,7 +32,7 @@ import { UserCircle, DollarSign, CheckCircle, Clock } from "lucide-react"
 
 export default function AddInvoiceForm({ customers }: { customers: CustomerField[] }) {
     const initialState: State = {message: null, errors: {}};
-    const [state, formAction] = useActionState(createInvoice, initialState);
+    const [, formAction] = useActionState(createInvoice, initialState);
   return (
     <div className="flex items-center justify-center mt-20">
       <Card className="w-full max-w-md shadow-lg mb-12">

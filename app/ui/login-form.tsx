@@ -6,14 +6,14 @@ import {
 } from '@heroicons/react/24/outline';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
-import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card';
+import { Card, CardHeader, CardTitle, CardDescription, CardContent} from '@/components/ui/card';
 import { useActionState } from 'react';
 import { authenticate } from '../lib/action';
 import { UserRound, LockIcon } from 'lucide-react';
 import Input from '@/components/ui/input';
 
 export default function LoginForm() {
-  const [errorMessage, formAction, isPending] = useActionState(
+  const [errorMessage, formAction] = useActionState(
     authenticate,
     undefined,
   );

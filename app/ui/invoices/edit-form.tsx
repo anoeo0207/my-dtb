@@ -14,7 +14,7 @@ import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { CustomerField, InvoiceForm } from '@/app/lib/definitions';
-import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/components/ui/card"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Users, DollarSign} from "lucide-react"
 import { useActionState } from 'react'
 import { updateInvoice, State } from '@/app/lib/action'
