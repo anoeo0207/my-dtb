@@ -2,13 +2,8 @@
 
 const nextConfig = {
     experimental: {
-      ppr: 'incremental', // 'incremental' cho phép áp dụng PPR cho các route cụ thể
+        ppr: 'incremental', //incremental value allows to adopt PPR for specific routes
     },
-    eslint: {
-      // Warning: Điều này cho phép quá trình build hoàn tất ngay cả khi có lỗi ESLint
-      ignoreDuringBuilds: true,
-    },
-  };
-  
-  module.exports = nextConfig;
-  
+};
+
+export default nextConfig;

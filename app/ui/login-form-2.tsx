@@ -12,10 +12,6 @@ import Input from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { UserRound, LockIcon } from 'lucide-react';
 
-
-export const description =
-  "A login form with email and password. There's an option to login with Google and a link to sign up if you don't have an account."
-
 export function LoginForm() {
   return (
     <Card className="mx-auto max-w-sm">
