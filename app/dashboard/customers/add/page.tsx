@@ -1,15 +1,11 @@
 'use client'
-import { useState } from "react"
-import { startTransition } from 'react';
 import { useActionState } from "react"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import Input from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Button } from "@/components/ui/button"
-import { UserCircle, UserRoundPlus, Mail, Image, Upload } from "lucide-react"
-import { CustomerField } from "@/app/lib/definitions"
+import { UserCircle, Mail, Image, Upload } from "lucide-react"
 import { DataForm, AddCustomer } from "@/app/lib/action"
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Checkbox } from "@/components/ui/checkbox";
 
 export default function AddCustomerForm() {

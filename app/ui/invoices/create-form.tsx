@@ -1,17 +1,11 @@
 'use client';
 
-import { useState } from 'react';
 import { useActionState } from 'react';
 import { CustomerField } from '@/app/lib/definitions';
 import Link from 'next/link';
 import {
-  CheckIcon,
-  ClockIcon,
   CurrencyDollarIcon,
   UserIcon,
-  AdjustmentsHorizontalIcon,
-  UsersIcon,
-  CurrencyEuroIcon,
   EllipsisHorizontalCircleIcon
 } from '@heroicons/react/24/outline';
 import { createInvoice, State } from '@/app/lib/action';
@@ -20,7 +14,6 @@ import Input from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import AcmeLogo from '@/app/ui/acme-logo'
 
 import {
   Select,

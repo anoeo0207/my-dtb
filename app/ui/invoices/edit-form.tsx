@@ -4,11 +4,9 @@ import {
   CheckIcon,
   ClockIcon,
   CurrencyDollarIcon,
-  UserCircleIcon,
 } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { toast } from "sonner"
-import { useState } from 'react'
 import { Button } from "@/components/ui/button"
 import Input from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -16,7 +14,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { CustomerField, InvoiceForm } from '@/app/lib/definitions';
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/components/ui/card"
-import { Loader2, Users, DollarSign, Tag, X } from "lucide-react"
+import { Users, DollarSign} from "lucide-react"
 import { useActionState } from 'react'
 import { updateInvoice, State } from '@/app/lib/action'
 
@@ -30,14 +28,6 @@ customers: CustomerField[];
 const initialState: State = { message: null, errors: {} };
 const updateInvoiceWithId = updateInvoice.bind(null, invoice.id);
 const [, formAction] = useActionState(updateInvoiceWithId, initialState);
-const [isLoading, setIsLoading] = useState(false)
-
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-    setIsLoading(true)
-    await new Promise(resolve => setTimeout(resolve, 2000))
-    setIsLoading(false)
-  }
 
   return (
     <div className="container mx-auto px-4 py-8 min-h-screen mt-20">

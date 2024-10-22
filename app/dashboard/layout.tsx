@@ -1,7 +1,6 @@
 // import SideNav from '@/app/ui/dashboard/sidenav';
 import { Toaster } from "@/components/ui/sonner";
 import SideNav2 from '../ui/dashboard/sidenav-shadcn';
-import Footer1 from "@/block/footer";
 
 export const experimental_ppr = true;
 

@@ -1,12 +1,8 @@
 'use client';
 
-import { lusitana } from '@/app/ui/fonts';
 import {
-  AtSymbolIcon,
-  KeyIcon,
   ExclamationCircleIcon,
 } from '@heroicons/react/24/outline';
-import { ArrowRightIcon } from '@heroicons/react/20/solid';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card';
@@ -14,7 +10,6 @@ import { useActionState } from 'react';
 import { authenticate } from '../lib/action';
 import { UserRound, LockIcon } from 'lucide-react';
 import Input from '@/components/ui/input';
-import { Link } from 'lucide-react';
 
 export default function LoginForm() {
   const [errorMessage, formAction, isPending] = useActionState(

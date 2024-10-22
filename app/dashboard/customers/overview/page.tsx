@@ -1,31 +1,5 @@
-import Image from "next/image"
 import Link from "next/link"
-import {
-  File,
-  Home,
-  LineChart,
-  ListFilter,
-  MoreHorizontal,
-  Package,
-  Package2,
-  PanelLeft,
-  PlusCircle,
-  Settings,
-  ShoppingCart,
-  Users2
-} from "lucide-react"
-
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Badge } from "@/components/ui/badge"
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb"
-import { Button } from "@/components/ui/button"
 import {
   Card,
   CardContent,
@@ -44,22 +18,15 @@ import {
 } from "@/components/ui/table"
 import {
   Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
+  TabsContent
 } from "@/components/ui/tabs"
-
-import Search from '@/app/ui/search';
 import { fetchCustomers } from "@/app/lib/data"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { fetchTotalMoney } from "@/app/lib/data"
 import { RemoveCustomer } from "@/app/ui/invoices/buttons"
 
 export default async function Page () {

@@ -8,7 +8,6 @@ import { ArrowLeft, Mail, Phone, MapPin, DollarSign, Calendar, ReceiptText } fro
 import Link from "next/link"
 import { CustomerField } from "@/app/lib/definitions"
 import { TotalMoney } from "@/app/lib/definitions"
-import { formatCurrency } from "@/app/lib/utils"
 
 interface CustomerData {
   name: string

@@ -1,8 +1,8 @@
 'use client'
-import { PencilIcon, PlusIcon, TrashIcon } from '@heroicons/react/24/outline';
+import { PencilIcon, TrashIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { deleteInvoice } from '@/app/lib/action';
-import { Button, buttonVariants } from '@/components/ui/button';
+import { Button} from '@/components/ui/button';
 import {
   AlertDialog,
   AlertDialogAction,
