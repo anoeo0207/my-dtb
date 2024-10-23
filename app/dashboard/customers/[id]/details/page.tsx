@@ -10,7 +10,7 @@ interface PageProps {
 }
 
 export default async function Page({ params }: PageProps): Promise<JSX.Element> {
-  const { id } = await params;
+  const { id } = params;
 
   const [invoice, money] = await Promise.all([
     fetchCustomersById(id),
