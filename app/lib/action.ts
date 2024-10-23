@@ -1,5 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 'use server';
- 
 import { z } from 'zod';
 import { sql } from '@vercel/postgres';
 import { revalidatePath } from 'next/cache';
@@ -230,7 +230,7 @@ WHERE id IN (SELECT DISTINCT customer_id FROM invoices)
   }
 }
 
-export async function deleteSystem(password: string) {
+export async function deleteSystem() {
   try {
     await sql`
       DELETE FROM invoices

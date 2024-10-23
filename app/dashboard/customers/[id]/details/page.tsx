@@ -10,20 +10,17 @@ interface PageProps {
 }
 
 export default async function Page({ params }: PageProps): Promise<JSX.Element> {
-  const { id } = params;
+  const { id } = await params;
 
-  // Fetch invoice and total money
   const [invoice, money] = await Promise.all([
     fetchCustomersById(id),
     fetchTotalMoney(id),
   ]);
 
-  // Handle not found case
   if (!invoice) {
     notFound();
   }
 
-  // Render the component
   return (
     <main>
       <AnalyzeCustomer invoice={invoice} money={money} />

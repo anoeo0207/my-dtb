@@ -71,7 +71,7 @@ export default function AnalyzeCustomer({
           <aside>
             <Card>
             {invoice?.map((customer) => ( 
-                <CardContent className="p-6">
+                <CardContent key={customer.id} className="p-6">
                 <div className="flex flex-col items-center text-center">
                   <Avatar className="h-32 w-32 mb-4">
                     <AvatarImage src={customer.image_url} />
@@ -110,7 +110,7 @@ export default function AnalyzeCustomer({
                   </CardHeader>
                   <CardContent>
                   {invoice?.map((customer) => ( 
-                    <div className="grid gap-4 md:grid-cols-3">
+                    <div key={customer.id} className="grid gap-4 md:grid-cols-3">
                       <Card>
                         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                           <CardTitle className="text-sm font-medium">Total Invoice</CardTitle>
@@ -142,7 +142,7 @@ export default function AnalyzeCustomer({
                     ))}
 
                   {money?.map((data) => ( 
-                    <div className="grid gap-4 md:grid-cols-3">
+                    <div key={data.customer_id} className="grid gap-4 md:grid-cols-3">
                     <Card>
                       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                         <CardTitle className="text-sm font-bold">Total Money</CardTitle>

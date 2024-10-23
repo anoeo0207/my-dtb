@@ -1,5 +1,5 @@
 "use client"
-
+/* eslint-disable react/prop-types */
 import * as React from "react"
 import * as AlertDialogPrimitive from "@radix-ui/react-alert-dialog"
 import { cn } from "@/lib/utils"

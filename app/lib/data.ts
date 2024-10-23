@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { sql } from '@vercel/postgres';
 import {
   CustomerField,
@@ -282,7 +283,6 @@ SET
     total_invoices = total_paid + total_pending
 WHERE id IN (SELECT DISTINCT customer_id FROM invoices);
     `;
-    const total = data.rows;
     return
   } catch (error) {
     console.error('Database Error:', error);

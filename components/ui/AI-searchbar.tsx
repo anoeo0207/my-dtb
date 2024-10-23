@@ -32,7 +32,7 @@ export default function SEARCH() {
     fetchSearchResults()
   }, [searchTerm])
 
-  const handleItemClick = (href) => {
+  const handleItemClick = () => {
     setSearchTerm("");
   }
 
@@ -55,7 +55,7 @@ export default function SEARCH() {
           <ul className="space-y-1">
             <p className="font-bold flex items-center justify-center text-black">Suggestion</p>
             {searchResults.map((result) => (
-              <li key={result.id} className="cursor-pointer px-4 py-2 hover:bg-muted text-black" onClick={() => handleItemClick(result.href)}>
+              <li key={result.id} className="cursor-pointer px-4 py-2 hover:bg-muted text-black" onClick={handleItemClick}>
                 <Link href={result.href} passHref>
                   {result.title}
                 </Link>
