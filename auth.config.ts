@@ -2,21 +2,16 @@ import type { NextAuthConfig } from 'next-auth';
 
 export const authConfig = {
   pages: {
-    signIn: '/login',
+    signIn: '/login', // Thay đổi nếu cần
   },
   callbacks: {
-    authorized({ auth, request: { nextUrl } }) {
-      const isLoggedIn = !!auth?.user;
-      const isOnDashboard = nextUrl.pathname.startsWith('/dashboard');
-      if (isOnDashboard) {
-        if (isLoggedIn) return true;
-        return false; // Redirect unauthenticated users to login page
-      } else if (isLoggedIn) {
-        return Response.redirect(new URL('/dashboard', nextUrl));
-      }
-      return true;
+    async redirect({ url }) {
+      return '/dashboard'; // Tự động chuyển hướng đến dashboard
+    },
+    async authorized({ auth }) {
+      return true; // Luôn cho phép truy cập
     },
   },
-  providers: [], // Add providers with an empty array for now
-  secret: process.env.NEXTAUTH_SECRET, // Thêm secret vào đây
+  providers: [], // Định nghĩa providers của bạn ở đây
+  secret: process.env.NEXTAUTH_SECRET, // Đảm bảo secret được định nghĩa
 } satisfies NextAuthConfig;
