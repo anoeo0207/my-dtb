@@ -6,7 +6,7 @@ export const experimental_ppr = true;
 
 export default function Layout ({children} : {children : React.ReactNode}) {
     return (
-        <div className="min-h-screen bg-gradient-to-br from-blue-50 to-blue-100 ">
+        <div className="min-h-screen bg-gradient-to-br from-[#28a5de] to-[#ffffff] ">
             <div>
                 <SideNav2 />
                 <Toaster />
