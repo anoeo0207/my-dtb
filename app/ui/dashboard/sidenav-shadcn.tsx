@@ -79,7 +79,7 @@ export default async function SideNav2() {
               <span className="sr-only">Toggle navigation menu</span>
             </Button>
           </SheetTrigger>
-          <SheetContent side="left">
+          <SheetContent side="left" className="bg-blue-500">
             <nav className="grid gap-6 text-lg font-medium">
               <Link
                 href="#"
@@ -88,33 +88,38 @@ export default async function SideNav2() {
                 <Package2 className="h-6 w-6" />
                 <span className="sr-only">Acme Inc</span>
               </Link>
-              <Link href="#" className="hover:text-foreground">
+              <Link href="/dashboard" className="hover:bg-gray-300 font-semibold">
                 Dashboard
               </Link>
               <Link
-                href="#"
-                className="text-muted-foreground hover:text-foreground"
+                href="/dashboard/invoices"
+                className="hover:bg-gray-300 font-semibold"
               >
-                Orders
+                Invoices
               </Link>
-              <Link
-                href="#"
-                className="text-muted-foreground hover:text-foreground"
-              >
-                Products
-              </Link>
-              <Link
-                href="#"
-                className="text-muted-foreground hover:text-foreground"
-              >
-                Customers
-              </Link>
-              <Link
-                href="#"
-                className="text-muted-foreground hover:text-foreground"
-              >
-                Analytics
-              </Link>
+              <DropdownMenu>
+            <DropdownMenuTrigger className="hover:bg-gray-300 font-semibold">
+              <div className="flex">
+                Customers 
+                <ChevronDown className="h-5 w-5 justify-center items-center" />
+              </div>
+              </DropdownMenuTrigger>
+            <DropdownMenuContent className="bg-white">
+              <DropdownMenuItem className="hover:bg-gray-300 font-semibold">
+                <Link href="/dashboard/customers/overview" className="flex" ><TableOfContents className="h-5 w-5 mr-2" />Overview</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem className="hover:bg-gray-300 font-semibold">
+                <Link href="/dashboard/customers/add" className="flex"><Plus className="h-5 w-5 mr-2" />Add customer</Link>
+              </DropdownMenuItem>
+
+            </DropdownMenuContent>
+          </DropdownMenu>
+          <Link
+            href="/dashboard/setting/account"
+            className="hover:bg-gray-300 font-semibold"
+          >
+            Settings
+          </Link>
             </nav>
           </SheetContent>
         </Sheet>
@@ -127,14 +132,14 @@ export default async function SideNav2() {
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="secondary" size="icon" className="rounded-full">
-                <CircleUser className="h-5 w-5" />
+                <CircleUser className="h-6 w-6" />
                 <span className="sr-only">Toggle user menu</span>
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="bg-white">
               <DropdownMenuLabel>My Account</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem className="hover:bg-gray-200"><Link href="/dashboard/setting/general">Settings</Link></DropdownMenuItem>
+              <DropdownMenuItem className="hover:bg-gray-200"><Link href="/dashboard/setting/aboutUs">Settings</Link></DropdownMenuItem>
               <DropdownMenuItem className="hover:bg-gray-200"><Link href="/dashboard/setting/support">Support</Link></DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem className="hover:bg-gray-200">
