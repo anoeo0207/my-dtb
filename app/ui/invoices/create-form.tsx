@@ -15,7 +15,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 
 import { CustomerField } from '@/app/lib/definitions'
-import { createInvoice, State } from '@/app/lib/action'
+import { createInvoice, State} from '@/app/lib/action'
 
 const handleClick = () => {
   toast("Invoice created successfully", {
@@ -25,7 +25,7 @@ const handleClick = () => {
 
 export default function AddInvoiceForm({ customers }: { customers: CustomerField[] }) {
   const initialState: State = { message: null, errors: {} };
-  const [state, formAction] = useActionState(createInvoice, initialState);
+  const [, formAction] = useActionState(createInvoice, initialState);
 
   return (
     <div className="container mx-auto px-4 py-8 min-h-screen mt-10">

@@ -29,7 +29,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { RemoveCustomer } from "@/app/ui/invoices/buttons"
-import { fetchCustomersPages } from '@/app/lib/data'
 
 export default async function CustomerTable () {
 const invoices = await fetchCustomers();
