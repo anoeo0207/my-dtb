@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { useActionState } from "react"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import Input from "@/components/ui/input"
