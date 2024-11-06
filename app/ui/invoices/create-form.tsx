@@ -1,145 +1,139 @@
-'use client';
-import React from 'react'; 
-import { useActionState } from 'react';
-import { CustomerField } from '@/app/lib/definitions';
-import Link from 'next/link';
-import {
-  CurrencyDollarIcon,
-  UserIcon,
-  EllipsisHorizontalCircleIcon
-} from '@heroicons/react/24/outline';
-import { createInvoice, State } from '@/app/lib/action';
-import { Button} from '@/components/ui/button';
-import Input from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+'use client'
 
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import React from 'react'
+import Link from 'next/link'
 import { toast } from "sonner"
+import { useActionState } from 'react'
+import { Users, DollarSign, Check, Clock } from "lucide-react"
 
-function Toast() {
-  return toast("Invoice created successfully");
-}
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { UserCircle, DollarSign, CheckCircle, Clock } from "lucide-react"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Button } from "@/components/ui/button"
+import Input from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+
+import { CustomerField } from '@/app/lib/definitions'
+import { createInvoice, State } from '@/app/lib/action'
+
+const handleClick = () => {
+  toast("Invoice created successfully", {
+    className: 'bg-green-500 text-white p-4 rounded-lg shadow-lg'
+  });
+};
 
 export default function AddInvoiceForm({ customers }: { customers: CustomerField[] }) {
-    const initialState: State = {message: null, errors: {}};
-    const [, formAction] = useActionState(createInvoice, initialState);
+  const initialState: State = { message: null, errors: {} };
+  const [state, formAction] = useActionState(createInvoice, initialState);
+
   return (
-    <div className="flex items-center justify-center mt-20">
-      <Card className="w-full max-w-md shadow-lg mb-12">
-        <CardHeader className="bg-gradient-to-r from-blue-600 to-blue-400 text-white rounded-t-lg">
-          <CardTitle className="text-2xl font-bold flex items-center">
-            <UserCircle className="mr-2" />
+    <div className="container mx-auto px-4 py-8 min-h-screen mt-10">
+      <Card className="max-w-2xl mx-auto border-gray-700 bg-gray-800 shadow-xl">
+        <CardHeader className="bg-gray-900 rounded-t-lg">
+          <CardTitle className="text-2xl font-bold flex items-center justify-center text-white">
+            <DollarSign className="mr-2" />
             Create Invoice
           </CardTitle>
         </CardHeader>
-        <form action={formAction}>
-          <CardContent className="space-y-6 pt-6">
-            <div className="space-y-2">
-              <Label htmlFor="customer" className="text-base font-bold text-gray-700">
-                <div className="flex items-center">
-                  <UserIcon className="mr-2 h-5 w-5" />
-                  Select Customer
-                </div>
-              </Label>
-              <Select name="customerId" defaultValue="" aria-describedby="customer-error">
-              <SelectTrigger className="w-[180px] bg-white w-full h-[60px]">
-                <SelectValue placeholder="Select a customer"/>
-              </SelectTrigger>
-              <SelectContent className="bg-white">
-              <SelectContent className="bg-white">
+        <CardContent className="p-6 space-y-6">
+          <form action={formAction}>
+            <div className="rounded-md bg-gray-800 p-4 md:p-6 space-y-6">
+              <div>
+                <Label htmlFor="customer" className="text-blue-300 font-bold text-lg flex items-center mb-2">
+                  <Users className="mr-2 h-5 w-5" />
+                  Customer
+                </Label>
+                <Select name="customerId">
+                  <SelectTrigger className="w-full bg-gray-700 border-gray-600 h-42 text-gray-500">
+                    <SelectValue placeholder="Select a customer" />
+                  </SelectTrigger>
+                  <SelectContent className="bg-gray-700 border-gray-600 h-42">
                     {customers.map((customer) => (
-                      <SelectItem key={customer.id} value={customer.id} className="hover:bg-gray-300">
-                        <div className="flex items-center justify-center">
-                        <Avatar>
-                          <AvatarImage src={customer.image_url} />
-                          <AvatarFallback>CN</AvatarFallback>
-                        </Avatar> 
-                        <div className="pl-2 text-sm">
-                          {customer.name}
+                      <SelectItem key={customer.id} value={customer.id} className="hover:bg-gray-600">
+                        <div className="flex items-center space-x-2">
+                          <Avatar>
+                            <AvatarImage src={customer.image_url} />
+                            <AvatarFallback>{customer.name.charAt(0)}</AvatarFallback>
+                          </Avatar> 
+                          <span className="text-gray-100">{customer.name}</span>
                         </div>
-                        </div>
-                        
                       </SelectItem>
                     ))}
                   </SelectContent>
-              </SelectContent>
-            </Select>
-            </div>
-
-            <div className="space-y-2">
-            <Label htmlFor="amount" className="text-base font-bold text-gray-700">
-                <div className="flex items-center">
-                  <CurrencyDollarIcon className="mr-2 h-5 w-5" />
-                  Amount
-                </div>
-              </Label>
-              <div className="relative">
-                <DollarSign className="absolute left-3 top-1/2 transform -translate-y-1/2 text-blue-400" />
-                <Input
-                  id="amount"
-                  name="amount"
-                  type="number"
-                  step="0.01"
-                  placeholder="Enter USD amount"
-                  required
-                  className="pl-10 border-blue-200 focus:ring-blue-500 focus:border-blue-500"
-                />
+                </Select>
               </div>
-            </div>
 
-            <div className="space-y-2">
-            <Label htmlFor="customer" className="text-base font-bold text-gray-700">
-                <div className="flex items-center">
-                  <EllipsisHorizontalCircleIcon className="mr-2 h-5 w-5" />
-                  Status
+              {/* Invoice Amount */}
+              <div>
+                <Label htmlFor="amount" className="text-blue-300 font-bold text-lg flex items-center mb-2">
+                  <DollarSign className="mr-2 h-5 w-5" />
+                  Amount
+                </Label>
+                <div className="relative mt-2 rounded-md">
+                  <Input
+                    id="amount"
+                    name="amount"
+                    type="number"
+                    step="0.01"
+                    min="0.01"
+                    placeholder="Enter USD amount"
+                    required
+                    className="pl-10 w-full bg-gray-700 border-gray-600 text-gray-100 focus:ring-blue-400 focus:border-blue-400"
+                  />
+                  <DollarSign className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-400" />
                 </div>
-              </Label>
-              <RadioGroup defaultValue="paid" name="status" className="flex space-x-4">
-                <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="pending" id="pending" className="text-blue-600 focus:ring-blue-500" />
-                  <Label htmlFor="pending" className="flex items-center">
-                    <Clock className="mr-1 h-4 w-4 text-blue-500" />
-                    Pending
-                  </Label>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="paid" id="paid" className="text-blue-600 focus:ring-blue-500" />
-                  <Label htmlFor="paid" className="flex items-center">
-                    <CheckCircle className="mr-1 h-4 w-4 text-blue-500" />
-                    Paid
-                  </Label>
-                </div>
-              </RadioGroup>
+              </div>
+
+              {/* Invoice Status */}
+              <fieldset>
+                <legend className="text-blue-300 font-bold text-lg flex items-center mb-2">
+                  <Clock className="mr-2 h-5 w-5" />
+                  Set the invoice status
+                </legend>
+                <RadioGroup defaultValue="pending" name="status" className="space-y-2">
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="paid" id="paid" className="border-gray-600 text-blue-400" />
+                    <Label htmlFor="paid" className="flex items-center space-x-2 cursor-pointer">
+                      <div className="w-full p-2 bg-green-800 rounded-lg flex items-center">
+                        <Check className="h-4 w-4 mr-2 text-green-300" />
+                        <span className="text-green-100">Paid</span>
+                      </div>
+                    </Label>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="pending" id="pending" className="border-gray-600 text-blue-400" />
+                    <Label htmlFor="pending" className="flex items-center space-x-2 cursor-pointer">
+                      <div className="w-full p-2 bg-yellow-800 rounded-lg flex items-center">
+                        <Clock className="h-4 w-4 mr-2 text-yellow-300" />
+                        <span className="text-yellow-100">Pending</span>
+                      </div>
+                    </Label>
+                  </div>
+                </RadioGroup>
+              </fieldset>
             </div>
-          </CardContent>
-          <CardFooter className="flex justify-between bg-blue-50 rounded-b-lg">
-            <Button 
-              type="button" 
-              variant="outline" 
-              className="w-[45%] border-blue-300 text-blue-600 hover:bg-blue-100 mt-5"
-            >
-              <Link href="/dashboard/invoices"> Cancel </Link>
-            </Button>
-            <Button 
-              type="submit" 
-              className="w-[45%] bg-gradient-to-r from-blue-600 to-blue-400 text-white hover:from-blue-700 hover:to-blue-500 mt-5"
-              onClick={() => Toast()}
-            >
-              Create Invoice
-            </Button>
-          </CardFooter>
-        </form>
+            <div className="mt-6 flex justify-end gap-4">
+              <Link
+                href="/dashboard/invoices"
+                className="flex h-10 items-center rounded-lg bg-gray-700 px-4 text-sm font-medium text-gray-300 transition-colors hover:bg-gray-600"
+              >
+                Cancel
+              </Link>
+              <Button 
+                type="submit" 
+                className="bg-blue-600 hover:bg-blue-700 text-white"
+                onClick={handleClick}
+              >
+                Create Invoice
+              </Button>
+            </div>
+          </form>
+        </CardContent>
       </Card>
+      <div className="mt-8 text-center text-sm text-gray-600">
+        <p>Need help? Contact our support team.</p>
+      </div>
     </div>
   )
 }

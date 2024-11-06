@@ -1,164 +1,138 @@
 'use client'
-import React from 'react'; 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import {
-  CheckIcon,
-  ClockIcon,
-  CurrencyDollarIcon,
-} from '@heroicons/react/24/outline';
-import Link from 'next/link';
+
+import React from 'react'
+import Link from 'next/link'
 import { toast } from "sonner"
+import { useActionState } from 'react'
+import { Users, DollarSign, Check, Clock } from "lucide-react"
+
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
-import Input from "@/components/ui/input"
+import  Input  from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { CustomerField, InvoiceForm } from '@/app/lib/definitions';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Users, DollarSign} from "lucide-react"
-import { useActionState } from 'react'
+
+import { CustomerField, InvoiceForm } from '@/app/lib/definitions'
 import { updateInvoice, State } from '@/app/lib/action'
 
 export default function EditInvoiceForm({
-invoice,
-customers,
+  invoice,
+  customers,
 }: {
-invoice: InvoiceForm;
-customers: CustomerField[];
+  invoice: InvoiceForm;
+  customers: CustomerField[];
 }) {
-const initialState: State = { message: null, errors: {} };
-const updateInvoiceWithId = updateInvoice.bind(null, invoice.id);
-const [, formAction] = useActionState(updateInvoiceWithId, initialState);
+  const initialState: State = { message: null, errors: {} };
+  const updateInvoiceWithId = updateInvoice.bind(null, invoice.id);
+  const [state, formAction] = useActionState(updateInvoiceWithId, initialState);
 
   return (
-    <div className="container mx-auto px-4 py-8 min-h-screen mt-20">
-      <Card className="max-w-2xl mx-auto shadow-lg border-blue-400">
-        <CardHeader className="bg-blue-600 text-white rounded-t-lg">
-          <CardTitle className="text-2xl font-bold flex items-center justify-center">
+    <div className="container mx-auto px-4 py-8 min-h-screen mt-10">
+      <Card className="max-w-2xl mx-auto border-gray-700 bg-gray-800 shadow-xl">
+        <CardHeader className="bg-gray-900 rounded-t-lg">
+          <CardTitle className="text-2xl font-bold flex items-center justify-center text-white">
             <DollarSign className="mr-2" />
             Edit Invoice
           </CardTitle>
         </CardHeader>
         <CardContent className="p-6 space-y-6">
-        <form action={formAction}>
-           <div className="rounded-md bg-gray-50 p-4 md:p-6">
-             {/* Customer Name */}
-             <div className="mb-4">
-              <Label htmlFor="customer" className="text-blue-600 font-bold text-lg flex items-center mb-2">
+          <form action={formAction}>
+            <div className="rounded-md bg-gray-800 p-4 md:p-6 space-y-6">
+              {/* Customer Name */}
+              <div>
+                <Label htmlFor="customer" className="text-blue-300 font-bold text-lg flex items-center mb-2">
                   <Users className="mr-2 h-5 w-5" />
                   Customer
-              </Label>
-               <div className="relative">
-                 <Select id="customerId" name="customerId" defaultValue={invoice.customer_id} aria-describedby="customer-error">
-                   <SelectTrigger className="h-[120%] border-blue-400 focus:ring-blue-600 focus:border-blue-600">
-                     <SelectValue defaultValue={invoice.customer_id} />
-                   </SelectTrigger>
-                   <SelectContent className="bg-white">
-                   {customers.map((customer) => (
-                    <SelectItem key={customer.id} value={customer.id} className="hover:bg-gray-300">
-                      <div className="flex items-center justify-center">
-                      <Avatar>
-                        <AvatarImage src={customer.image_url} />
-                        <AvatarFallback>CN</AvatarFallback>
-                      </Avatar> 
-                      <div className="pl-2 text-sm">
-                        {customer.name}
-                      </div>
-                </div>
-            
-          </SelectItem>
-        ))}
+                </Label>
+                <Select name="customerId" defaultValue={invoice.customer_id}>
+                  <SelectTrigger className="w-full bg-gray-700 border-gray-600 text-gray-100 h-42">
+                    <SelectValue placeholder="Select a customer" className="h-10" />
+                  </SelectTrigger>
+                  <SelectContent className="bg-gray-700 border-gray-600 h-42">
+                    {customers.map((customer) => (
+                      <SelectItem key={customer.id} value={customer.id} className="hover:bg-gray-600">
+                        <div className="flex items-center space-x-2">
+                          <Avatar>
+                            <AvatarImage src={customer.image_url} />
+                            <AvatarFallback>{customer.name.charAt(0)}</AvatarFallback>
+                          </Avatar> 
+                          <span className="text-gray-100">{customer.name}</span>
+                        </div>
+                      </SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
               </div>
-            </div>
 
-            {/* Invoice Amount */}
-            <div className="mb-4">
-              <Label htmlFor="amount" className="text-blue-600 font-bold text-lg flex items-center mb-5">
-                <DollarSign className="mr-2 h-5 w-5" />
+              {/* Invoice Amount */}
+              <div>
+                <Label htmlFor="amount" className="text-blue-300 font-bold text-lg flex items-center mb-2">
+                  <DollarSign className="mr-2 h-5 w-5" />
                   Amount
-              </Label>
-              <div className="relative mt-2 rounded-md">
-                <Input
-                  id="amount"
-                  name="amount"
-                  type="number"
-                  step="0.01"
-                  defaultValue={invoice.amount}
-                  placeholder="Enter USD amount"
-                  className="pl-10 w-full border-blue-400 focus:ring-blue-500 focus:border-blue-500"
-                />
-                <CurrencyDollarIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
+                </Label>
+                <div className="relative mt-2 rounded-md">
+                  <Input
+                    id="amount"
+                    name="amount"
+                    type="number"
+                    step="0.01"
+                    defaultValue={invoice.amount}
+                    placeholder="Enter USD amount"
+                    className="pl-10 w-full bg-gray-700 border-gray-600 text-gray-100 focus:ring-blue-400 focus:border-blue-400"
+                  />
+                  <DollarSign className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-400" />
+                </div>
               </div>
-            </div>
 
-            {/* Invoice Status */}
-            <fieldset>
-              <legend className="text-blue-600 font-bold text-lg flex items-center">
-                <DollarSign className="mr-2 h-5 w-5" />
-                Set the invoice status
-              </legend>
-              <div className="rounded-md border border-gray-200 bg-white px-[14px] py-3">
-                <RadioGroup defaultValue="paid" name="status">
+              {/* Invoice Status */}
+              <fieldset>
+                <legend className="text-blue-300 font-bold text-lg flex items-center mb-2">
+                  <Clock className="mr-2 h-5 w-5" />
+                  Set the invoice status
+                </legend>
+                <RadioGroup defaultValue={invoice.status} name="status" className="space-y-2">
                   <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="paid" id="paid" className="border-blue-400" />
-                    <div className="flex w-[120%] items-center bg-green-300 rounded-lg">
-                      <CheckIcon className="h-4 w-4 mr-2" />
-                      <Label htmlFor="paid">Paid</Label>
-                    </div>
+                    <RadioGroupItem value="paid" id="paid" className="border-gray-600 text-blue-400" />
+                    <Label htmlFor="paid" className="flex items-center space-x-2 cursor-pointer">
+                      <div className="w-full p-2 bg-green-800 rounded-lg flex items-center">
+                        <Check className="h-4 w-4 mr-2 text-green-300" />
+                        <span className="text-green-100">Paid</span>
+                      </div>
+                    </Label>
                   </div>
                   <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="pending" id="pending" className="border-blue-400" />
-                    <div className="flex w-[120%] items-center bg-gray-200 rounded-lg">
-                      <ClockIcon className="h-4 w-4 mr-2" />
-                      <Label htmlFor="pending">Pending</Label>
-                    </div>
+                    <RadioGroupItem value="pending" id="pending" className="border-gray-600 text-blue-400" />
+                    <Label htmlFor="pending" className="flex items-center space-x-2 cursor-pointer">
+                      <div className="w-full p-2 bg-yellow-800 rounded-lg flex items-center">
+                        <Clock className="h-4 w-4 mr-2 text-yellow-300" />
+                        <span className="text-yellow-100">Pending</span>
+                      </div>
+                    </Label>
                   </div>
                 </RadioGroup>
-              </div>
-            </fieldset>
-          </div>
-          <div className="mt-6 flex justify-end gap-4">
-            <Link
-              href="/dashboard/invoices"
-              className="flex h-10 items-center rounded-lg bg-gray-100 px-4 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-200"
-            >
-              Cancel
-            </Link>
-
-            {/* Set the button type to submit */}
-            <Button type="submit" variant="default" onClick={() => toast("Invoice edited successfully")}>
-              Apply changes
-            </Button>
-          </div>
-        </form>
+              </fieldset>
+            </div>
+            <div className="mt-6 flex justify-end gap-4">
+              <Link
+                href="/dashboard/invoices"
+                className="flex h-10 items-center rounded-lg bg-gray-700 px-4 text-sm font-medium text-gray-300 transition-colors hover:bg-gray-600"
+              >
+                Cancel
+              </Link>
+              <Button 
+                type="submit" 
+                className="bg-blue-600 hover:bg-blue-700 text-white"
+                onClick={() => toast("Invoice edited successfully")}
+              >
+                Apply changes
+              </Button>
+            </div>
+          </form>
         </CardContent>
-        {/* <CardFooter className="bg-gray-50 rounded-b-lg p-6 flex flex-col sm:flex-row gap-4">
-          <Button 
-              type="button" 
-              className="w-full sm:w-1/2 bg-gray-200 hover:bg-gray-300 text-gray-800 transition-colors duration-300"
-            >
-              <X className="mr-2 h-4 w-4" />
-              Cancel
-          </Button>
-          <Button 
-            type="submit" 
-            className="w-full sm:w-1/2 bg-blue-600 hover:bg-blue-700 text-white transition-colors duration-300"
-            disabled={isLoading}
-          >
-            {isLoading ? (
-              <>
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                Updating...
-              </>
-            ) : (
-              'Update Invoice'
-            )}
-          </Button>
-        </CardFooter> */}
       </Card>
-      <div className="mt-8 text-center text-sm text-gray-500">
+      <div className="mt-8 text-center text-sm text-gray-600">
         <p>Need help? Contact our support team.</p>
       </div>
     </div>

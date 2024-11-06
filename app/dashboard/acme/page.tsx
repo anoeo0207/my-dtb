@@ -6,7 +6,7 @@ import React from 'react';
 
 const Hero1 = () => {
   return (
-    <section className="py-32 animate-fadeIn">
+    <section className="py-32 animate-fadeIn text-white">
       <div className="container">
         <div className="grid items-center gap-8 lg:grid-cols-2">
           <div className="flex flex-col items-center text-center lg:items-start lg:text-left ml-10">
@@ -23,8 +23,8 @@ const Hero1 = () => {
               consequatur. Explicabo.
             </p>
             <div className="flex w-full flex-col justify-center gap-2 sm:flex-row lg:justify-start">
-              <Button className="w-full sm:w-auto">
-                <Link href="/dashboard/">
+              <Button className="w-full sm:w-auto bg-gradient-to-r from-[#5A585A] to-[#090947]">
+                <Link href="/dashboard/" className="font-bold">
                   Visit Dashboard
                 </Link>
               </Button>

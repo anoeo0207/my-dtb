@@ -20,9 +20,9 @@ import { deleteCustomer } from '@/app/lib/action';
 
 export function CreateInvoice() {
   return (
-    <Button size="sm" className="h-7 gap-1 bg-black text-white hover:bg-gray-400">
+    <Button className="gap-1 bg-gradient-to-r from-[#04619F] to-[#2b2b2b] text-white hover:bg-gray-400 text-base sm:text-sm hover:from-gray-400 hover:to-gray-600">
     <PlusCircle className="h-3.5 w-3.5" />
-      <Link href="/dashboard/invoices/create">Create Invoice</Link>
+      <Link href="/dashboard/invoices/create" className="font-bold" >Create Invoice</Link>
     </Button>
   );
 }
@@ -45,7 +45,7 @@ export function DeleteInvoice({ id }: { id: string }) {
       <TrashIcon className="w-5" />
     </div>
   </AlertDialogTrigger>
-  <AlertDialogContent className="bg-white">
+  <AlertDialogContent className="bg-gradient-to-r from-[#E9E9E9] to-[#F6F6F6]">
     <AlertDialogHeader>
       <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
       <AlertDialogDescription>

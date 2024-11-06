@@ -15,7 +15,9 @@ export default function Search({ placeholder }: { placeholder: string }) {
     console.log(`Searching... ${term}`);
    
     const params = new URLSearchParams(searchParams);
-    params.set('page', '1');
+    params.set('page', '1');<div className="w-1/2 md:mt-8">
+    <Search placeholder="Search invoices..." />
+  </div>
     if (term) {
       params.set('query', term);
     } else {
@@ -31,7 +33,7 @@ export default function Search({ placeholder }: { placeholder: string }) {
         Search
       </label>
       <input
-        className="peer block w-full rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
+        className="peer block w-full rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500 bg-gray-200 focus:bg-white"
         placeholder={placeholder}
         onChange={(e) => {
           handleSearch(e.target.value);

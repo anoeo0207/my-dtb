@@ -2,9 +2,6 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import {
   Card,
   CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
 } from "@/components/ui/card"
 import {
   Table,
@@ -19,12 +16,14 @@ import {
   TabsContent
 } from "@/components/ui/tabs"
 import React from 'react'; 
-
+import { Filter } from "lucide-react";
 import { UpdateInvoice, DeleteInvoice } from '@/app/ui/invoices/buttons';
 import InvoiceStatus from '@/app/ui/invoices/status';
 import { formatDateToLocal, formatCurrency } from '@/app/lib/utils';
 import { fetchFilteredInvoices } from '@/app/lib/data';
 import Search from '@/app/ui/search';
+import { CreateInvoice } from "@/app/ui/invoices/buttons";
+import { Button } from "@/components/ui/button";
 
 export default async function Page({
         query,
@@ -42,19 +41,26 @@ export default async function Page({
           <Tabs defaultValue="all">
             <TabsContent value="all">
               <Card x-chunk="dashboard-06-chunk-0">
-                <CardHeader className="text-center">
-                  <CardTitle>Products</CardTitle>
-                  <CardDescription>
-                    Manage your products and view their sales performance.
-                  </CardDescription>
-                </CardHeader>
                 <CardContent>
-                  <div className="mb-5">
-                    <Search placeholder="Search invoices..." />
+                  <div className="grid grid-cols-2">
+                    <div className="grid grid-cols-1 items-center text-lg font-bold">
+                      <div className="flex gap-2">
+                      <Button className="bg-white border border-black">
+                        <Filter className="h-5 w-5 mr-2" />
+                        Filter
+                      </Button>
+                        <Search placeholder="Search invoices..." />
+                      </div>
+                    </div>
+                    <div className="mb-5 flex justify-end">
+                      <div className="flex gap-2 md:mt-8">
+                        <CreateInvoice />
+                      </div>
+                    </div>
                   </div>
                   <Table>
                     <TableHeader>
-                      <TableRow>
+                      <TableRow className="rounded-lg bg-gradient-to-r from-[#EDF1F4] to-[#C3CBDC]">
                         <TableHead className="hidden w-[100px] sm:table-cell">
                           <span className="sr-only">Image</span>
                         </TableHead>
@@ -74,7 +80,7 @@ export default async function Page({
                     </TableHeader>
                     <TableBody>
                     {invoices?.map((invoice) => (
-                      <TableRow key={invoice.id}>
+                      <TableRow key={invoice.id} className="hover:bg-gray-100">
                         <TableCell className="hidden sm:table-cell">
                           <Avatar className="h-12 w-12">
                             <AvatarImage src={invoice.image_url} />

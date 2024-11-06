@@ -69,7 +69,7 @@ export default function AnalyzeCustomer({
       <main className="flex-grow container mx-auto px-4 py-8">
         <div className="grid gap-6 md:grid-cols-[300px_1fr]">
           <aside>
-            <Card>
+            <Card className="bg-gradient-to-r from-[#F5E3E6] to-[#D9E4F5]">
             {invoice?.map((customer) => ( 
                 <CardContent key={customer.id} className="p-6">
                 <div className="flex flex-col items-center text-center">
@@ -113,7 +113,7 @@ export default function AnalyzeCustomer({
                     <div key={customer.id} className="grid gap-4 md:grid-cols-3">
                       <Card>
                         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                          <CardTitle className="text-sm font-medium">Total Invoice</CardTitle>
+                          <CardTitle className="text-sm font-bold">Total Invoice</CardTitle>
                           <ReceiptText className="h-4 w-4 text-muted-foreground" />
                         </CardHeader>
                         <CardContent>
@@ -122,7 +122,7 @@ export default function AnalyzeCustomer({
                       </Card>
                       <Card>
                         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                          <CardTitle className="text-sm font-medium">Total Paid</CardTitle>
+                          <CardTitle className="text-sm font-bold">Total Paid</CardTitle>
                           <ReceiptText className="h-4 w-4 text-muted-foreground" />
                         </CardHeader>
                         <CardContent>
@@ -131,7 +131,7 @@ export default function AnalyzeCustomer({
                       </Card>
                       <Card>
                         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                          <CardTitle className="text-sm font-medium">Total Pending</CardTitle>
+                          <CardTitle className="text-sm font-bold">Total Pending</CardTitle>
                           <ReceiptText className="h-4 w-4 text-muted-foreground" />
                         </CardHeader>
                         <CardContent>
@@ -142,14 +142,15 @@ export default function AnalyzeCustomer({
                     ))}
 
                   {money?.map((data) => ( 
-                    <div key={data.customer_id} className="grid gap-4 md:grid-cols-3">
+                    <div key={data.customer_id} className="grid gap-4 md:grid-cols-3 mt-4">
                     <Card>
                       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                        <CardTitle className="text-sm font-bold">Total Money</CardTitle>
+                        <CardTitle className="text-sm font-bold">Total Amount</CardTitle>
                         <DollarSign className="h-4 w-4 text-muted-foreground" />
                       </CardHeader>
                       <CardContent>
-                        <div className="text-2xl font-bold">${data.total_amount}</div>
+                        <div className="text-2xl font-bold">{formatCurrency(data.total_amount / 100)}
+                        </div>
                       </CardContent>
                     </Card>
                     <Card>
@@ -158,7 +159,7 @@ export default function AnalyzeCustomer({
                           <DollarSign className="h-4 w-4 text-muted-foreground" />
                         </CardHeader>
                         <CardContent>
-                          <div className="text-2xl font-bold text-green-600">${data.total_money_paid}</div>
+                          <div className="text-2xl font-bold text-green-600">{formatCurrency(data.total_money_paid / 100)}</div>
                         </CardContent>
                       </Card>
                       <Card>
@@ -167,7 +168,7 @@ export default function AnalyzeCustomer({
                           <DollarSign className="h-4 w-4 text-muted-foreground" />
                         </CardHeader>
                         <CardContent>
-                          <div className="text-2xl font-bold text-yellow-600">${data.total_money_pending}</div>
+                          <div className="text-2xl font-bold text-yellow-600">{formatCurrency(data.total_money_pending / 100)}</div>
                         </CardContent>
                       </Card>
                   </div>

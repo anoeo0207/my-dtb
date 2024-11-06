@@ -223,6 +223,18 @@ SET
     total_invoices = total_paid + total_pending
 WHERE id IN (SELECT DISTINCT customer_id FROM invoices)
     `;
+
+    await sql`
+      UPDATE customers
+      SET 
+          total_invoices = 0,
+          total_paid = 0,
+          total_pending = 0
+      WHERE id = ${id} AND NOT EXISTS (
+          SELECT 1 FROM invoices WHERE customer_id = ${id}
+      )
+    `;
+
     revalidatePath('/dashboard/customers/overview');
     return { message: 'Deleted Invoice.' };
   } catch (error) {
