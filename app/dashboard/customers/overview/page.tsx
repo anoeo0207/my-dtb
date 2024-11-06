@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 // import { montserrat } from '@/components/ui/fonts';
 import CustomerTable from '@/app/ui/customer/customer-table';
+import React from 'react';
 
 export const metadata: Metadata = {
    title: 'Customers',
