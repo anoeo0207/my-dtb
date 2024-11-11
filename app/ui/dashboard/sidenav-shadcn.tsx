@@ -27,25 +27,25 @@ export default async function SideNav2() {
         <nav className="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
           <Link
             href="/dashboard/acme"
-            className="flex items-center gap-2 text-lg font-semibold md:text-base focus:bg-gray-300 font-bold"
+            className="flex items-center gap-2 text-lg font-semibold md:text-base font-bold"
           >
             <Package2 className="h-6 w-6" />
             <span className="sr-only">Acme Inc</span>
           </Link>
           <Link
             href="/dashboard"
-            className="text-foreground transition-colors hover:text-foreground focus:bg-gray-300 font-bold"
+            className="text-foreground transition-colors hover:text-foreground font-bold"
           >
             Dashboard
           </Link>
           <Link
             href="/dashboard/invoices"
-            className="text-muted-foreground transition-colors hover:text-foreground focus:bg-gray-300 font-bold"
+            className="text-muted-foreground transition-colors hover:text-foreground font-bold"
           >
             Invoices
           </Link>
           <DropdownMenu>
-            <DropdownMenuTrigger className="text-muted-foreground transition-colors hover:text-foreground focus:bg-gray-300 font-bold">
+            <DropdownMenuTrigger className="text-muted-foreground transition-colors hover:text-foreground font-bold">
               <div className="flex">
                 Customers 
                 <ChevronDown className="h-5 w-5 justify-center" />
@@ -63,7 +63,7 @@ export default async function SideNav2() {
           </DropdownMenu>
           <Link
             href="/dashboard/setting/account"
-            className="text-muted-foreground transition-colors hover:text-foreground focus:bg-gray-300 font-bold"
+            className="text-muted-foreground transition-colors hover:text-foreground font-bold"
           >
             Settings
           </Link>
@@ -79,7 +79,7 @@ export default async function SideNav2() {
               <span className="sr-only">Toggle navigation menu</span>
             </Button>
           </SheetTrigger>
-          <SheetContent side="left" className="bg-black">
+          <SheetContent side="left" className="bg-gradient-to-r from-[#232526] to-[#414345]">
             <nav className="grid gap-6 text-lg font-medium text-white">
               <Link
                 href="/dashboard/acme"

@@ -83,6 +83,8 @@ export type CustomerField = {
   total_invoices: number;
   total_pending: number;
   total_paid: number;
+  phone_number: string;
+  address: string;
 };
 
 export type InvoiceForm = {

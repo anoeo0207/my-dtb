@@ -204,7 +204,9 @@ export async function fetchCustomers() {
         image_url,
         total_invoices,
         total_paid,
-        total_pending
+        total_pending,
+        phone_number,
+        address
       FROM customers
       ORDER BY name ASC
     `;
@@ -227,7 +229,9 @@ export async function fetchCustomersById(id : string) {
         image_url,
         total_invoices,
         total_paid,
-        total_pending
+        total_pending,
+        phone_number,
+        address
       FROM customers
       WHERE customers.id = ${id}
     `;
@@ -279,10 +283,10 @@ export async function fetchTotalInvoices() {
     const data = await sql<TotalInvoice>`
     UPDATE customers
 SET 
-    total_paid = (SELECT COUNT(*) FROM invoices WHERE customer_id = customers.id),
-    total_pending = (SELECT COUNT(*) FROM invoices WHERE customer_id = customers.id AND status = 'pending'),
-    total_invoices = total_paid + total_pending
-WHERE id IN (SELECT DISTINCT customer_id FROM invoices);
+    total_paid = COALESCE((SELECT COUNT(*) FROM invoices WHERE customer_id = customers.id), 0),
+    total_pending = COALESCE((SELECT COUNT(*) FROM invoices WHERE customer_id = customers.id AND status = 'pending'), 0),
+    total_invoices = COALESCE((SELECT COUNT(*) FROM invoices WHERE customer_id = customers.id), 0)
+WHERE id IN (SELECT id FROM customers);
     `;
     return
   } catch (error) {

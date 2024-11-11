@@ -39,10 +39,10 @@ const invoices = await fetchCustomers();
           <Tabs defaultValue="all">
             <TabsContent value="all">
               <Card x-chunk="dashboard-06-chunk-0">
-                <CardHeader className="">
-                  <CardTitle>Customers</CardTitle>
-                  <CardDescription>
-                    Overview about your customers
+              <CardHeader className="bg-gradient-to-r from-[#304352] to-[#d7d2cc] text-white rounded-xl mb-2">
+                  <CardTitle className="text-2xl">Customers</CardTitle>
+                  <CardDescription className="text-blue-100">
+                    Overview of your customers
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -91,7 +91,7 @@ const invoices = await fetchCustomers();
                         <TableCell>
                         <DropdownMenu>
                           <DropdownMenuTrigger>...</DropdownMenuTrigger>
-                          <DropdownMenuContent className="bg-white border-black">
+                          <DropdownMenuContent className="bg-white">
                             <DropdownMenuItem className="hover:bg-gray-300">
                               <Link href={`/dashboard/customers/${invoice.id}/details`}>
                                 More information

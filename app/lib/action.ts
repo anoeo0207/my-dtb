@@ -187,16 +187,10 @@ export async function deleteInvoice(id: string) {
     await sql`
       UPDATE customers
 SET 
-    total_paid = (SELECT COUNT(*) FROM invoices WHERE customer_id = customers.id AND status = 'paid'),
-    total_pending = (SELECT COUNT(*) FROM invoices WHERE customer_id = customers.id AND status = 'pending')
-WHERE id IN (SELECT DISTINCT customer_id FROM invoices)
-    `;
-
-    await sql`
-      UPDATE customers
-SET 
-    total_invoices = total_paid + total_pending
-WHERE id IN (SELECT DISTINCT customer_id FROM invoices)
+    total_paid = COALESCE((SELECT COUNT(*) FROM invoices WHERE customer_id = customers.id), 0),
+    total_pending = COALESCE((SELECT COUNT(*) FROM invoices WHERE customer_id = customers.id AND status = 'pending'), 0),
+    total_invoices = COALESCE((SELECT COUNT(*) FROM invoices WHERE customer_id = customers.id), 0)
+WHERE id IN (SELECT id FROM customers);
     `;
     revalidatePath('/dashboard/invoices');
     return { message: 'Deleted Invoice.' };

@@ -60,9 +60,9 @@ export default function AnalyzeCustomer({
     <div className="flex flex-col min-h-screen bg-background">
       <header >
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-            <Link href="/dashboard/customers/overview" className="flex items-center space-x-2">
+            <Link href="/dashboard/customers/overview" className="flex items-center space-x-2 text-white">
               <ArrowLeft className="h-6 w-6" />
-              <span className="font-semibold">Back to Customers</span>
+              <span className="font-semibold ">Back to Customers</span>
             </Link>
           </div>
       </header>
@@ -85,11 +85,11 @@ export default function AnalyzeCustomer({
                     </div>
                     <div className="flex items-center">
                       <Phone className="mr-2 h-4 w-4" />
-                      {customerData.phone}
+                      {customer.phone_number}
                     </div>
-                    <div className="flex items-center">
-                      <MapPin className="mr-2 h-4 w-4" />
-                      {customerData.address}
+                    <div className="flex items-start">
+                      <MapPin className="h-4 w-4 flex-shrink-0 mt-1" />
+                      <span className="text-sm break-words mr-14">{customer.address}</span>
                     </div>
                   </div>
                 </div>
@@ -143,7 +143,7 @@ export default function AnalyzeCustomer({
 
                   {money?.map((data) => ( 
                     <div key={data.customer_id} className="grid gap-4 md:grid-cols-3 mt-4">
-                    <Card>
+                    <Card className="bg-blue-100">
                       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                         <CardTitle className="text-sm font-bold">Total Amount</CardTitle>
                         <DollarSign className="h-4 w-4 text-muted-foreground" />
@@ -153,7 +153,7 @@ export default function AnalyzeCustomer({
                         </div>
                       </CardContent>
                     </Card>
-                    <Card>
+                    <Card className="bg-green-100">
                         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                           <CardTitle className="text-sm font-bold">Total Money Paid</CardTitle>
                           <DollarSign className="h-4 w-4 text-muted-foreground" />
@@ -162,7 +162,7 @@ export default function AnalyzeCustomer({
                           <div className="text-2xl font-bold text-green-600">{formatCurrency(data.total_money_paid / 100)}</div>
                         </CardContent>
                       </Card>
-                      <Card>
+                      <Card className="bg-yellow-100">
                         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                           <CardTitle className="text-sm font-bold">Total Money Pending</CardTitle>
                           <DollarSign className="h-4 w-4 text-muted-foreground" />
@@ -173,16 +173,15 @@ export default function AnalyzeCustomer({
                       </Card>
                   </div>
                   ))}
-
                   </CardContent>
                 </Card>
                 <Card>
                   <CardHeader>
-                    <CardTitle>Recent Activity</CardTitle>
+                    <CardTitle>Transaction History</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-4">
-                      {customerData.recentTransactions.slice(0, 3).map((transaction) => (
+                      {customerData.recentTransactions.map((transaction) => (
                         <div key={transaction.id} className="flex items-center">
                           <div className="mr-4">
                             <Calendar className="h-4 w-4 text-muted-foreground" />

@@ -69,10 +69,18 @@ export default function AddCustomerForm() {
                         </div>
 
                         <div className="space-y-2">
-                            <Label htmlFor="customerImage" className="text-sm font-medium text-gray-700 flex items-center">
+                        <Label htmlFor="customerImage" className="text-sm font-medium text-gray-700 flex items-center">
                                 <Image className="h-5 w-5 mr-2 text-blue-600" />
                                 Customer Image
                             </Label>
+                            <Input 
+                                id="customerImageUrl"
+                                name="customerImageUrl"
+                                type="text" 
+                                className="bg-gray-50 border-gray-300 text-gray-900 placeholder-gray-500 focus:border-blue-500 focus:ring-blue-500"
+                                placeholder="Enter customer's image URL here" 
+                            />
+                            <p className="text-gray-400">or</p>
                             <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
                                 <div className="space-y-1 text-center">
                                     {preview ? (
