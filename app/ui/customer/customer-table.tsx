@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from "next/link"
+import { kanit } from '../fonts';
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import {
   Card,
@@ -39,9 +40,9 @@ const invoices = await fetchCustomers();
           <Tabs defaultValue="all">
             <TabsContent value="all">
               <Card x-chunk="dashboard-06-chunk-0">
-              <CardHeader className="bg-gradient-to-r from-[#304352] to-[#d7d2cc] text-white rounded-xl mb-2">
-                  <CardTitle className="text-2xl">Customers</CardTitle>
-                  <CardDescription className="text-blue-100">
+              <CardHeader className="bg-gradient-to-r from-[#A0A9C2] to-[#EDF1F4] text-white rounded-xl mb-2">
+                  <CardTitle className={`${kanit.className} text-white text-2xl`}>Customers</CardTitle>
+                  <CardDescription className={`${kanit.className} text-gray-200 text-base`}>
                     Overview of your customers
                   </CardDescription>
                 </CardHeader>
