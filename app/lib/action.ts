@@ -187,7 +187,7 @@ export async function deleteInvoice(id: string) {
     await sql`
       UPDATE customers
 SET 
-    total_paid = COALESCE((SELECT COUNT(*) FROM invoices WHERE customer_id = customers.id), 0),
+    total_paid = COALESCE((SELECT COUNT(*) FROM invoices WHERE customer_id = customers.id AND status = 'paid'), 0),
     total_pending = COALESCE((SELECT COUNT(*) FROM invoices WHERE customer_id = customers.id AND status = 'pending'), 0),
     total_invoices = COALESCE((SELECT COUNT(*) FROM invoices WHERE customer_id = customers.id), 0)
 WHERE id IN (SELECT id FROM customers);
